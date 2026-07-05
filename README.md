@@ -59,18 +59,9 @@ my-opencode-stack/
 
 ## 保持同步
 
-本地环境有变更后，同步回仓库：
+本地环境有变更后，对 AI 说**「全栈环境同步」**。
 
-```bash
-bash scripts/sync.sh          # 同步并推送
-bash scripts/sync.sh --dry-run  # 先看看改了什么
-```
-
-脚本会自动：
-- 复制配置文件（opencode.jsonc、orchestrator_append.md 等）
-- 复制插件和模板
-- **替换真实 API Key 为占位符**，防止泄漏
-- git commit + push
+AI 会对比本地环境和仓库的差异，列出清单，你确认后才写入并 push。
 
 ## 了解更多
 
