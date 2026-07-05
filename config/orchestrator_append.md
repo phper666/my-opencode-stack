@@ -32,6 +32,8 @@
 → DAG 所有叶子节点走完 1→10 步后，orchestrator 额外调度一次集成验证
 → 内容：跨子功能的接口集成测试
 → 失败处理：退回依赖图，重新评估子功能边界或依赖关系
+→ 退回重规划 ≤2 次 → 超过后 @oracle 介入裁定
+→ 计入全局 6 次退回配额
 
 ### 明确的小任务
 "修个 bug"、"改个样式"、"加个字段"
@@ -103,7 +105,8 @@ PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 c
 @fixer 实现完成后 → 分两步走：
 
 **① 正确性审查：** `ocr review --audience agent`
-→ 高/中优先级问题让 @fixer 修复 → 重新审查，直到无新增问题
+→ 高/中优先级问题让 @fixer 修复 → 重新审查
+→ 重审 ≤3 轮 → 超过后 @oracle 介入裁定
 
 **② 过度设计审查：** ponytail-review
 → 列出可简化项（stdlib 替代、多余抽象、未用依赖等）
@@ -123,7 +126,8 @@ PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 c
 
 ### Semgrep 安全扫描
 Code review 通过后 → 在项目目录执行 `semgrep --config=auto .` 扫描
-→ 有报错就让 @fixer 修复并重扫，直到无报错
+→ 有报错让 @fixer 修复并重扫
+→ 重扫 ≤3 轮 → 超过后 @oracle 介入裁定
 
 ### PRD 回验
 Semgrep 通过后 → @oracle 回验 PRD：
@@ -219,7 +223,8 @@ Semgrep 通过后 → @oracle 回验 PRD：
      · 是例外 → 正常通过；非例外 → 标记 ⚠️ 退回步骤 5
    - **设计对照**：对照 `02-design.md` 的组件映射表和交互说明
    - **集成验证**：子功能 DAG 的跨子功能集成测试归入此步
-   - 有缺口 → @fixer 修正 → 重新回验
+- 有缺口 → @fixer 修正 → 重新回验
+- 回验 ≤3 轮 → 超过后 @oracle 介入裁定
    - 产出：`09-verification.md` + 更新 `docs/trail/STATE.md`
 
 10. **知识回写** → `@oracle`（按需执行）：
@@ -234,6 +239,12 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 超过 2 次 → @oracle 介入裁定（改设计 / 改方案 / 砍范围）
 - **全局限制**：所有退回迭代总计 ≤6 次，超过则强制 @oracle 裁定
 
+步骤 7/8/9 发现问题 → 各步骤自身设有 ≤3 轮重审上限：
+- 步骤 7（code review）：ocr 重审 ≤3 轮，超限 @oracle 裁定
+- 步骤 8（semgrep）：重扫 ≤3 轮，超限 @oracle 裁定
+- 步骤 9（回验）：重验 ≤3 轮，超限 @oracle 裁定
+- 步骤 7/8/9 的重试计入全局 6 次配额
+
 #### 步骤职责边界
 - **步骤 3（架构审查）**：技术选型、模块划分、数据流、风险分析、领域归属、TDD 例外裁定
 - **步骤 4（代码设计）**：接口签名、DTO 定义、类型映射表、关键类字段清单——不涉及「该不该用 X」
@@ -241,7 +252,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
 ### 会话断点恢复（跨会话继续）
 流水线可能跨多个会话执行。会话断开后重新启动时，自动恢复断点：
 
-1. 启动时读取 `docs/trail/changes/<id>/` 下的产物文件列表
+1. 启动时读取 `docs/trail/changes/<version>/<feature-id>/` 下的产物文件列表
 2. 按编号升序找到最后一个缺失的编号 → 从该步继续
    - 示例：存在 `01-prd.md + 02-design.md` → 从步骤 3 开始
    - 示例：存在 `01-prd.md + 02-design.md + 03-architecture.md` → 从步骤 4 开始
@@ -432,7 +443,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
 ### 设计产物规则
 
 - **步骤 2 完成时**（UI/UX 设计后）:
-  → @designer 写入 `docs/trail/changes/<id>/02-design.md`（设计规范）
+  → @designer 写入 `docs/trail/changes/<version>/<feature-id>/02-design.md`（设计规范）
   → 模板：`~/.config/opencode/trail-templates/02-design-template.md`
   → 必须包含：组件映射表（引用 shadcn 组件名 + 变体）、交互说明、设计决策
 
