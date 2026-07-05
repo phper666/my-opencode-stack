@@ -61,7 +61,7 @@
 | **open-code-review** | 阿里巴巴线级代码审查 | https://github.com/alibaba/open-code-review | `install-system.sh` npm install -g |
 | **codebase-memory-mcp** | 代码知识图谱 | https://github.com/DeusData/codebase-memory-mcp | `install-codebase-memory.sh` GitHub Release |
 | **mattpocock/skills** | 14 个工程 skill（to-prd、tdd 等）— **全部** | https://github.com/mattpocock/skills | `install-skills.sh` |
-| **anthropics/skills** | 40+ skill 中用了其中 7 个（taste-skill、minimalist-ui、shadcn、api-design、e2e-testing、frontend-design）| https://github.com/anthropics/skills | `install-skills.sh` |
+| **anthropics/skills** | 40+ skill 中用了其中 11 个（taste-skill、minimalist-ui、shadcn、api-design、e2e-testing、frontend-design、docx、xlsx、pdf、pptx）| https://github.com/anthropics/skills | `install-skills.sh` |
 | **rohitg00/agentmemory** | 6 个 skill（agentmemory-mcp-tools、recall、remember 等）— **全部** | https://github.com/rohitg00/agentmemory | `install-skills.sh` |
 | **dietrichgebert/ponytail** | 1 个 skill（ponytail）— **全部** | https://github.com/DietrichGebert/ponytail | `install-skills.sh` |
 | **tanweai/pua** | 12 个 PUA 鞭策 skill（pua、p10、p7、p9、pro、yes、mama、ding 等）— **全部** | https://github.com/tanweai/pua | `install-skills.sh` 克隆仓库 + symlink |

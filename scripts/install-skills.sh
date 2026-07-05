@@ -65,6 +65,11 @@ install_skill e2e-testing                       anthropics/skills
 install_skill shadcn                            anthropics/skills
 install_skill taste-skill                       anthropics/skills
 install_skill minimalist-ui                     anthropics/skills
+# 文档格式处理 skills
+install_skill docx                              anthropics/skills
+install_skill xlsx                              anthropics/skills
+install_skill pdf                               anthropics/skills
+install_skill pptx                              anthropics/skills
 install_skill find-skills                       vercel-labs/skills
 install_skill postgres                          timescale/pg-aiguide
 # ponytail 是 plugin（已配在 opencode.jsonc），OpenCode 自动加载，无需 skill
