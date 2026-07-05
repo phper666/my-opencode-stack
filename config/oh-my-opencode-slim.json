@@ -4,51 +4,146 @@
   "preset": "custom",
   "presets": {
     "custom": {
-      "orchestrator": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "variant": "high",
-        "skills": ["*"],
-        "mcps": ["*", "!context7"]
-      },
-      "oracle": {
+      "council": {
+        "mcps": [],
         "model": "opencode-go/deepseek-v4-pro",
-        "variant": "max",
-        "skills": ["simplify", "codebase-design", "grill-with-docs", "domain-modeling", "api-design", "postgres", "tauri-v2", "rust-engineer", "sqlite-database-expert"],
-        "mcps": ["markitdown", "sequential-thinking"]
-      },
-      "librarian": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "variant": "high",
         "skills": [],
-        "mcps": ["websearch", "context7", "gh_grep", "markitdown", "github"]
-      },
-      "explorer": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "variant": "high",
-        "skills": [],
-        "mcps": []
+        "variant": "high"
       },
       "designer": {
+        "mcps": [],
         "model": "opencode-go/deepseek-v4-pro",
-        "variant": "medium",
-        "skills": ["prototype", "codebase-design", "shadcn", "taste-skill", "minimalist-ui"],
-        "mcps": []
+        "skills": [
+          "prototype",
+          "codebase-design",
+          "shadcn",
+          "taste-skill",
+          "minimalist-ui"
+        ],
+        "variant": "medium"
+      },
+      "explorer": {
+        "mcps": [],
+        "model": "opencode-go/deepseek-v4-flash",
+        "skills": [],
+        "variant": "high"
       },
       "fixer": {
+        "mcps": [
+          "chrome-devtools",
+          "sequential-thinking",
+          "github"
+        ],
         "model": "opencode-go/deepseek-v4-pro",
-        "variant": "high",
-        "skills": ["tdd", "diagnosing-bugs", "implement", "e2e-testing", "frontend-design", "full-output-enforcement", "postgres", "tauri-v2", "rust-engineer", "sqlite-database-expert", "open-code-review"],
-        "mcps": ["chrome-devtools", "sequential-thinking", "github"]
+        "skills": [
+          "tdd",
+          "diagnosing-bugs",
+          "implement",
+          "e2e-testing",
+          "frontend-design",
+          "full-output-enforcement",
+          "postgres",
+          "tauri-v2",
+          "rust-engineer",
+          "sqlite-database-expert",
+          "open-code-review"
+        ],
+        "variant": "high"
+      },
+      "librarian": {
+        "mcps": [
+          "websearch",
+          "context7",
+          "gh_grep",
+          "markitdown",
+          "github"
+        ],
+        "model": "opencode-go/deepseek-v4-flash",
+        "skills": [],
+        "variant": "high"
       },
       "observer": {
         "model": "opencode-go/mimo-v2.5",
         "variant": "low"
       },
-      "council": {
+      "oracle": {
+        "mcps": [
+          "markitdown",
+          "sequential-thinking"
+        ],
         "model": "opencode-go/deepseek-v4-pro",
-        "variant": "high",
+        "skills": [
+          "simplify",
+          "codebase-design",
+          "grill-with-docs",
+          "domain-modeling",
+          "api-design",
+          "postgres",
+          "tauri-v2",
+          "rust-engineer",
+          "sqlite-database-expert"
+        ],
+        "variant": "max"
+      },
+      "orchestrator": {
+        "mcps": [
+          "*",
+          "!context7"
+        ],
+        "model": "opencode-go/deepseek-v4-flash",
+        "skills": [
+          "*"
+        ],
+        "variant": "high"
+      }
+    },
+    "openai": {
+      "designer": {
+        "mcps": [],
+        "model": "openai/gpt-5.4-mini",
         "skills": [],
-        "mcps": []
+        "variant": "medium"
+      },
+      "explorer": {
+        "mcps": [],
+        "model": "openai/gpt-5.4-mini",
+        "skills": [],
+        "variant": "low"
+      },
+      "fixer": {
+        "mcps": [],
+        "model": "openai/gpt-5.5",
+        "skills": [],
+        "variant": "low"
+      },
+      "librarian": {
+        "mcps": [
+          "websearch",
+          "context7",
+          "gh_grep"
+        ],
+        "model": "openai/gpt-5.4-mini",
+        "skills": [],
+        "variant": "low"
+      },
+      "oracle": {
+        "mcps": [],
+        "model": "openai/gpt-5.5",
+        "skills": [
+          "simplify"
+        ],
+        "variant": "high"
+      },
+      "orchestrator": {
+        "mcps": [
+          "*",
+          "!context7"
+        ],
+        "model": "openai/gpt-5.5",
+        "skills": [
+          "*"
+        ],
+        "variant": "medium"
       }
     }
   }

@@ -1,11 +1,8 @@
 {
-  "provider": {
-    "openai": {
-      "apiKey": "<PLACEHOLDER_ECHOBRAID_API_KEY>",
-      "model": "deepseek-v4-flash",
-      "baseURL": "https://api.echobraid.ai/openai/v1"
+    "llm": {
+        "url": "https://opencode.ai/zen/go/v1",
+        "auth_token": "<PLACEHOLDER_OPENCODE_GO_API_KEY>",
+        "model": "deepseek-v4-flash",
+        "use_anthropic": false
     }
-  },
-  "language": "zh-CN",
-  "autoFix": false
 }

@@ -6,6 +6,12 @@ echo " my-opencode-stack — 全栈环境一键安装"
 echo "========================================"
 echo ""
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/lib/manifest.sh"
+
+# 初始化 manifest（如果已存在则复用，追加本次安装记录）
+manifest_init
+
 # 检查占位符
 if grep -r "PLACEHOLDER_" config/ --include="*.json" --include="*.env" --include="*.md" > /dev/null 2>&1; then
   echo "⚠️  检测到未替换的 PLACEHOLDER，请先编辑 config/ 下的文件填入 API Key"
@@ -35,6 +41,12 @@ bash scripts/install-docker.sh
 
 echo "6/6 启动本地服务..."
 bash start-env.sh
+
+echo ""
+echo "--- 配置 git pre-commit hook ---"
+REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+git config core.hooksPath "$REPO_DIR/.githooks"
+echo "  ✅ pre-commit hook 已启用（秘钥防误提交）"
 
 echo ""
 echo "========================================"

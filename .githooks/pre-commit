@@ -1,0 +1,12 @@
+#!/bin/bash
+# pre-commit — 阻止疑似 API Key 误提交
+# 由 setup-all.sh 通过 core.hooksPath 自动启用
+set -e
+
+if git diff --cached --diff-filter=ACM | grep -q 'sk-[a-zA-Z0-9_-]\{20,\}'; then
+  echo ""
+  echo "❌ 提交包含疑似 API Key（模式: sk- + 20 位以上字符）"
+  echo "   git diff --cached 检查是否有误加的秘钥文件"
+  echo "   确认安全后可用 --no-verify 跳过本检查"
+  exit 1
+fi

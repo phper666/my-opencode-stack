@@ -1,42 +1,91 @@
 #!/bin/bash
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/lib/manifest.sh"
+
 echo "=== 批量安装 OpenCode Skills ==="
 echo "需先登录 opencode auth login"
 
-# Matt Pocock 核心 skills
-npx skills add mattpocock/skills --skill to-prd -y
-npx skills add mattpocock/skills --skill to-issues -y
-npx skills add mattpocock/skills --skill implement -y
-npx skills add mattpocock/skills --skill tdd -y
-npx skills add mattpocock/skills --skill diagnosing-bugs -y
-npx skills add mattpocock/skills --skill codebase-design -y
-npx skills add mattpocock/skills --skill domain-modeling -y
-npx skills add mattpocock/skills --skill grill-with-docs -y
-npx skills add mattpocock/skills --skill prototype -y
-npx skills add mattpocock/skills --skill ask-matt -y
-npx skills add mattpocock/skills --skill setup-matt-pocock-skills -y
-npx skills add mattpocock/skills --skill triage -y
-npx skills add mattpocock/skills --skill improve-codebase-architecture -y
-npx skills add mattpocock/skills --skill resolving-merge-conflicts -y
+SKILLS_DIR="$HOME/.config/opencode/skills"
 
-# agentmemory skills
+# 检查技能是否已存在
+skill_exists() {
+  [ -d "$SKILLS_DIR/$1" ] || [ -d "$SKILLS_DIR/$1" ] 2>/dev/null
+}
+
+install_skill() {
+  local name="$1"
+  local repo="$2"
+  shift 2
+  if [ -d "$SKILLS_DIR/$name" ]; then
+    echo "  ✅ skill $name 已存在"
+    manifest_add skill name="$name" repo="$repo" pre_existing=true
+  else
+    echo "  安装 skill $name..."
+    npx skills add "$repo" --skill "$name" "$@" -y
+    manifest_add skill name="$name" repo="$repo" pre_existing=false
+  fi
+}
+
+# Matt Pocock 核心 skills
+install_skill to-prd                            mattpocock/skills
+install_skill to-issues                         mattpocock/skills
+install_skill implement                         mattpocock/skills
+install_skill tdd                               mattpocock/skills
+install_skill diagnosing-bugs                   mattpocock/skills
+install_skill codebase-design                   mattpocock/skills
+install_skill domain-modeling                   mattpocock/skills
+install_skill grill-with-docs                   mattpocock/skills
+install_skill prototype                         mattpocock/skills
+install_skill ask-matt                          mattpocock/skills
+install_skill setup-matt-pocock-skills          mattpocock/skills
+install_skill triage                            mattpocock/skills
+install_skill improve-codebase-architecture     mattpocock/skills
+install_skill resolving-merge-conflicts         mattpocock/skills
+
+# agentmemory skills（复合安装，先快照再检测新增）
+echo "  安装 agentmemory skills..."
+SKILLS_BEFORE=$(ls "$SKILLS_DIR" 2>/dev/null | sort)
 npx skills add rohitg00/agentmemory -y
+SKILLS_AFTER=$(ls "$SKILLS_DIR" 2>/dev/null | sort)
+NEW_SKILLS=$(comm -13 <(echo "$SKILLS_BEFORE") <(echo "$SKILLS_AFTER") 2>/dev/null || echo "$SKILLS_AFTER")
+if [ -n "$NEW_SKILLS" ]; then
+  while IFS= read -r s; do
+    [ -n "$s" ] && manifest_add skill name="$s" repo="rohitg00/agentmemory" pre_existing=false
+  done <<< "$NEW_SKILLS"
+fi
 
 # 工具类 skills — anthropics/skills
-npx skills add anthropics/skills --skill frontend-design -y
-npx skills add anthropics/skills --skill skill-creator -y
-npx skills add anthropics/skills --skill api-design -y
-npx skills add anthropics/skills --skill e2e-testing -y
-npx skills add anthropics/skills --skill shadcn -y
-npx skills add anthropics/skills --skill taste-skill -y
-npx skills add anthropics/skills --skill minimalist-ui -y
-npx skills add vercel-labs/skills --skill find-skills -y
-npx skills add timescale/pg-aiguide --skill postgres -y
-npx skills add nodnarbnitram/claude-code-extensions@tauri-v2 -y
-npx skills add jeffallan/claude-skills@rust-engineer -y
-npx skills add "martinholovsky/claude-skills-generator@SQLite Database Expert" -y
+install_skill frontend-design                   anthropics/skills
+install_skill skill-creator                     anthropics/skills
+install_skill api-design                        anthropics/skills
+install_skill e2e-testing                       anthropics/skills
+install_skill shadcn                            anthropics/skills
+install_skill taste-skill                       anthropics/skills
+install_skill minimalist-ui                     anthropics/skills
+install_skill find-skills                       vercel-labs/skills
+install_skill postgres                          timescale/pg-aiguide
 # ponytail 是 plugin（已配在 opencode.jsonc），OpenCode 自动加载，无需 skill
 
+# tag-based 安装（无 --skill 参数，用快照检测新增）
+install_tag_repo() {
+  local repo="$1"
+  local label="$2"
+  echo "  安装 $label..."
+  SKILLS_BEFORE=$(ls "$SKILLS_DIR" 2>/dev/null | sort)
+  npx skills add "$repo" -y
+  SKILLS_AFTER=$(ls "$SKILLS_DIR" 2>/dev/null | sort)
+  NEW_SKILLS=$(comm -13 <(echo "$SKILLS_BEFORE") <(echo "$SKILLS_AFTER") 2>/dev/null || echo "$SKILLS_AFTER")
+  if [ -n "$NEW_SKILLS" ]; then
+    while IFS= read -r s; do
+      [ -n "$s" ] && manifest_add skill name="$s" repo="$repo" pre_existing=false
+    done <<< "$NEW_SKILLS"
+  fi
+}
+install_tag_repo "nodnarbnitram/claude-code-extensions@tauri-v2"     "tauri-v2"
+install_tag_repo "jeffallan/claude-skills@rust-engineer"             "rust-engineer"
+install_tag_repo "martinholovsky/claude-skills-generator@SQLite Database Expert" "SQLite Database Expert"
+
 echo "=== Skills 安装完成 ==="
-echo "实际数量：$(ls ~/.config/opencode/skills/ | wc -l | tr -d ' ') 个"
+echo "实际数量：$(ls "$SKILLS_DIR" | wc -l | tr -d ' ') 个"

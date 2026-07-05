@@ -1,16 +1,13 @@
 #!/bin/bash
-set -e
 
-echo "=== 启动 my-opencode-stack 服务 ==="
+echo "加载 agentmemory（launchd 开机自启，此处确保运行中）..."
+if ! launchctl list | grep -q com.agentmemory; then
+  launchctl load ~/Library/LaunchAgents/com.agentmemory.plist
+fi
 
-# agentmemory（51 个 MCP 工具）
-agentmemory --tools all &
-
-echo "等待 agentmemory 就绪..."
 sleep 3
 
-echo -n "agentmemory: "
-curl -s http://localhost:3111/health | python3 -c "import json,sys; print('✅' if json.load(sys.stdin).get('status')=='ok' else '❌')" 2>/dev/null || echo "⚠️ 未运行"
+echo "健康检查..."
+agentmemory status 2>/dev/null || echo "⚠️ agentmemory 未运行，请检查 plist"
 
-echo ""
-echo "环境就绪。启动 OpenCode Desktop 即可。"
+echo "环境就绪。启动 OpenCode 即可。"

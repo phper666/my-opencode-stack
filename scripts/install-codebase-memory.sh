@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/lib/manifest.sh"
+
 echo "=== 安装 codebase-memory-mcp ==="
 
 # 检测架构
@@ -17,6 +20,7 @@ BIN_PATH="$BIN_DIR/codebase-memory-mcp"
 
 if [ -f "$BIN_PATH" ]; then
   echo "✅ 已存在: $BIN_PATH"
+  manifest_add binary path="$BIN_PATH" pre_existing=true
   exit 0
 fi
 
@@ -27,4 +31,5 @@ curl -L -o "$BIN_PATH" \
   "https://github.com/DeusData/codebase-memory-mcp/releases/download/$VERSION/$FILE"
 
 chmod +x "$BIN_PATH"
+manifest_add binary path="$BIN_PATH" pre_existing=false
 echo "✅ 安装完成: $BIN_PATH ($(du -h "$BIN_PATH" | cut -f1))"
