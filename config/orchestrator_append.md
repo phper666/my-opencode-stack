@@ -243,6 +243,12 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 对常见命令（ls, find, git, grep, cargo test, npm list 等），优先用 `rtk <command>` 替代裸命令
 - 例：`rtk ls -la`、`rtk git status`、`rtk find . -name "*.ts"`、`rtk cargo check`
 
+### 环境同步到仓库
+"同步环境"、"更新 my-opencode-stack"、"sync 一下"
+→ 找到 `~/AI/my-opencode-stack/`
+→ 执行 `bash scripts/sync.sh`
+→ 如果加了 `--dry-run` 先预览变更再决定
+
 ### 全栈环境复刻
 "换新电脑"、"复刻环境"、"在新机器上搭建开发环境"
 → 找到 `~/AI/my-opencode-stack/` 或用户指定的 my-opencode-stack 目录
