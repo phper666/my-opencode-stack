@@ -81,9 +81,16 @@ review 设计/PRD/方案
 ### 验收测试生成
 PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 checklist → 写入 .mattpocock/prds/<id>-acceptance-checklist.md
 
-### Code Review（open-code-review）
-@fixer 实现完成后 → 对工作区变更执行 `ocr review --audience agent` 审查
+### Code Review（open-code-review + ponytail-review）
+@fixer 实现完成后 → 分两步走：
+
+**① 正确性审查：** `ocr review --audience agent`
 → 高/中优先级问题让 @fixer 修复 → 重新审查，直到无新增问题
+
+**② 过度设计审查：** ponytail-review
+→ 列出可简化项（stdlib 替代、多余抽象、未用依赖等）
+→ 追加到 `07-code-review.md`「简化建议」节
+→ @oracle 逐条裁定采纳/拒绝
 
 ### 自修复 Lint + Type-check（零 token 成本）
 @fixer 实现 + TDD 完成后 → 自动跑 lint + type-check：
