@@ -1,0 +1,113 @@
+# Backend (Spring Boot 3 + Java 17 + MyBatis-Plus) .gitignore
+
+# Compiled class
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse / STS
+.project
+.classpath
+.settings/
+.factorypath
+.apt_generated/
+.springBeans
+.sts4-cache/
+bin/
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Gradle
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logs
+*.log
+logs/
+spring.log
+spring-boot-actuator.log
+
+# Env / Config
+.env
+.env.local
+application-local.yml
+application-local.properties
+application-local.yaml
+config/application-local.*
+config/local.*
+
+# Spring Boot
+HELP.md
+!/.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# H2/HSQLDB dev database
+*.db
+*.mv.db
+*.trace.db
+*.h2.db
+data/
+tmp/
+db/data/
+
+# IDE temp
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Crash dumps
+hs_err_pid*
+replay_pid*
+
+# Test reports
+test-output/
+test-results/
+target/surefire-reports/
+target/failsafe-reports/
+target/site/
+jacoco.exec
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Flyway local
+flyway.conf
+
+# Coverage
+coverage/
+*.lcov
+htmlcov/
+jacoco/
+
+# OpenAPI generated
+openapi-generator/
+src/main/java/**/openapi/

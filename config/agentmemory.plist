@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.agentmemory</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/agentmemory</string>
+        <string>--tools</string>
+        <string>all</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>WorkingDirectory</key>
+    <string><PLACEHOLDER_HOME>/.agentmemory</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+        <key>EMBEDDING_PROVIDER</key>
+        <string>local</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string><PLACEHOLDER_HOME>/.agentmemory/stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string><PLACEHOLDER_HOME>/.agentmemory/stderr.log</string>
+</dict>
+</plist>

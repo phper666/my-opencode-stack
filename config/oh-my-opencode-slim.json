@@ -1,0 +1,55 @@
+{
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
+  "disabled_agents": [],
+  "preset": "custom",
+  "presets": {
+    "custom": {
+      "orchestrator": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "variant": "high",
+        "skills": ["*"],
+        "mcps": ["*", "!context7"]
+      },
+      "oracle": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "max",
+        "skills": ["simplify", "codebase-design", "grill-with-docs", "domain-modeling", "api-design", "postgres", "tauri-v2", "rust-engineer", "sqlite-database-expert"],
+        "mcps": ["markitdown", "sequential-thinking"]
+      },
+      "librarian": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "variant": "high",
+        "skills": [],
+        "mcps": ["websearch", "context7", "gh_grep", "markitdown", "github"]
+      },
+      "explorer": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "variant": "high",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "medium",
+        "skills": ["prototype", "codebase-design", "shadcn", "taste-skill", "minimalist-ui"],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "high",
+        "skills": ["tdd", "diagnosing-bugs", "implement", "e2e-testing", "frontend-design", "full-output-enforcement", "postgres", "tauri-v2", "rust-engineer", "sqlite-database-expert", "open-code-review"],
+        "mcps": ["chrome-devtools", "sequential-thinking", "github"]
+      },
+      "observer": {
+        "model": "opencode-go/mimo-v2.5",
+        "variant": "low"
+      },
+      "council": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "high",
+        "skills": [],
+        "mcps": []
+      }
+    }
+  }
+}

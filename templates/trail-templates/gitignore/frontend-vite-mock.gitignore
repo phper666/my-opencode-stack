@@ -1,0 +1,72 @@
+# Frontend (Vite + React + TypeScript) .gitignore for static SPA / mock dashboards
+# 用于 TrendDash 这种纯前端 mock 项目
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+dist/
+dist-ssr/
+
+# Vite
+.vite/
+
+# Cache
+.cache/
+.parcel-cache/
+.turbo/
+
+# Coverage
+coverage/
+*.lcov
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Mock data (本地大文件)
+mock-data/*.json
+mock-data/*.csv
+mock-data/*.xlsx
+
+# Charts / Datasets
+public/data/*.csv
+public/data/*.json
+public/data/*.geojson
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.sw?
+*~
+Thumbs.db
+
+# Test
+/playwright-report/
+/playwright/.cache/
+/test-results/
+
+# Storybook
+storybook-static/
+
+# Vercel / Netlify
+.vercel/
+.netlify/
+
+# Bun
+bun.lockb

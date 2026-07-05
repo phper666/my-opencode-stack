@@ -1,0 +1,92 @@
+# Frontend (Vite + React + TypeScript + shadcn/ui) .gitignore
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Vite
+.vite/
+
+# Cache
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.webpack/
+
+# Coverage
+coverage/
+*.lcov
+nyc-report/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+Thumbs.db
+
+# Env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Test
+/coverage
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/cypress/videos/
+/cypress/screenshots/
+
+# Storybook
+storybook-static/
+
+# PWA
+dev-dist/
+
+# Bun
+bun.lockb
+
+# pnpm
+.pnpm-store/
+
+# Turbo
+.turbo/
+
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/

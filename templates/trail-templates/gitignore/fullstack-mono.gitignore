@@ -1,0 +1,128 @@
+# Full-stack Monorepo .gitignore
+# 用于 taskflow 这种"两仓/多仓但都在一个项目下"的场景
+# 会被 /init-project 复制到 taskflow/frontend/ 和 taskflow/backend/ 子目录
+
+# ===== 前端 (frontend/) 忽略 =====
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/.next/
+frontend/.nuxt/
+frontend/.svelte-kit/
+frontend/.turbo/
+frontend/.webpack/
+frontend/coverage/
+frontend/*.lcov
+frontend/.eslintcache
+frontend/.stylelintcache
+frontend/storybook-static/
+frontend/dev-dist/
+frontend/.vercel/
+frontend/.netlify/
+frontend/playwright-report/
+frontend/playwright/.cache/
+frontend/test-results/
+frontend/cypress/videos/
+frontend/cypress/screenshots/
+
+# 前端 env
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/.env.*.local
+
+# ===== 后端 (backend/) 忽略 =====
+backend/target/
+backend/build/
+backend/out/
+backend/gradle/
+backend/!**/build/
+backend/!**/src/main/**/build/
+backend/!**/src/test/**/build/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/HELP.md
+backend/*.log
+backend/logs/
+backend/spring.log
+backend/.gradle/
+backend/bin/
+
+# 后端 env / 本地配置
+backend/.env
+backend/.env.local
+backend/application-local.yml
+backend/application-local.properties
+backend/application-local.yaml
+backend/config/application-local.*
+backend/config/local.*
+
+# 后端 dev database
+backend/*.db
+backend/*.mv.db
+backend/*.trace.db
+backend/*.h2.db
+backend/data/
+backend/tmp/
+backend/db/data/
+
+# 后端测试
+backend/coverage/
+backend/*.lcov
+backend/htmlcov/
+backend/jacoco/
+backend/jacoco.exec
+backend/target/surefire-reports/
+backend/target/failsafe-reports/
+backend/test-output/
+backend/test-results/
+
+# 后端崩溃日志
+backend/hs_err_pid*
+backend/replay_pid*
+
+# 后端 OpenAPI 自动生成
+backend/openapi-generator/
+backend/src/main/java/**/openapi/
+
+# 后端 Flyway
+backend/flyway.conf
+
+# ===== 通用（项目根）=====
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Docker 本地覆盖
+docker-compose.override.yml
+docker-compose.local.yml
+.docker/
+
+# 测试报告
+coverage/
+test-results/
+playwright-report/
+
+# Secrets
+*.pem
+*.key
+*.crt
+secrets/
+secrets.local/

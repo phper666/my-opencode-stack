@@ -1,0 +1,137 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": "allow",
+  "server": {
+    "port": 4096,
+    "hostname": "0.0.0.0",
+    "mdns": true,
+    "mdnsDomain": "myproject.local",
+    "cors": ["http://localhost:5173"],
+  },
+  "disabled_providers": ["local", "xiaomi-token-plan"],
+  "provider": {
+    "echobraid": {
+      "name": "echobraid",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://api.echobraid.ai/openai/v1",
+        "apiKey": "<PLACEHOLDER_ECHOBRAID_API_KEY>",
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "reasoning": true,
+          "options": { "reasoningEffort": "high" },
+          "name": "deepseek-v4-flash",
+        },
+        "deepseek-v4-pro": {
+          "reasoning": true,
+          "options": { "reasoningEffort": "high" },
+          "name": "deepseek-v4-pro",
+        },
+      },
+    },
+    "opencode-go": {
+      "name": "opencode-go",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+        "apiKey": "<PLACEHOLDER_OPENCODE_GO_API_KEY>",
+      },
+      "models": {
+        "glm-5.2": { "name": "glm-5.2" },
+        "glm-5.1": { "name": "glm-5.1" },
+        "kimi-k2.7": { "name": "kimi-k2.7" },
+        "kimi-k2.7-code": { "name": "kimi-k2.7-code" },
+        "kimi-k2.6": { "name": "kimi-k2.6" },
+        "deepseek-v4-pro": { "name": "deepseek-v4-pro" },
+        "deepseek-v4-flash": { "name": "deepseek-v4-flash" },
+        "mimo-v2.5": { "name": "mimo-v2.5" },
+        "mimo-v2.5-pro": { "name": "mimo-v2.5-pro" },
+        "minimax-m3": { "name": "minimax-m3" },
+        "minimax-m2.7": { "name": "minimax-m2.7" },
+        "minimax-m2.5": { "name": "minimax-m2.5" },
+      },
+    },
+    "opencode-go-anthropic": {
+      "name": "opencode-go-anthropic",
+      "npm": "@ai-sdk/anthropic",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+        "apiKey": "<PLACEHOLDER_OPENCODE_GO_API_KEY>",
+      },
+      "models": {
+        "qwen3.7-max": { "name": "qwen3.7-max" },
+        "qwen3.7-plus": { "name": "qwen3.7-plus" },
+        "qwen3.6-plus": { "name": "qwen3.6-plus" },
+      },
+    },
+    "opencode-free": {
+      "name": "opencode-free",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+        "apiKey": "<PLACEHOLDER_OPENCODE_GO_API_KEY>",
+      },
+      "models": {
+        "big-pickle": { "name": "big-pickle" },
+        "deepseek-v4-flash-free": { "name": "deepseek-v4-flash-free" },
+        "mimo-v2.5-free": { "name": "mimo-v2.5-free" },
+        "north-mini-code-free": { "name": "north-mini-code-free" },
+        "nemotron-3-ultra-free": { "name": "nemotron-3-ultra-free" },
+      },
+    },
+    "local": {
+      "name": "local",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:3000/v1",
+        "apiKey": "<PLACEHOLDER_LOCAL_API_KEY>",
+      },
+      "models": {
+        "deepseek-v4-flash": { "name": "deepseek-v4-flash", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "deepseek-v4-pro": { "name": "deepseek-v4-pro", "reasoning": true, "options": { "reasoningEffort": "high" } },
+      },
+    },
+  },
+  "plugin": [
+    "oh-my-opencode-slim",
+    "context-mode",
+    "opencode-token-monitor@latest",
+    "@dietrichgebert/ponytail",
+  ],
+  "agent": {
+    "explore": { "disable": true },
+    "general": { "disable": true },
+  },
+  "mcp": {
+    "codebase-memory-mcp": {
+      "enabled": true,
+      "type": "local",
+      "command": ["<PLACEHOLDER_HOME>/.local/bin/codebase-memory-mcp"],
+      "timeout": 60000,
+    },
+    "agentmemory": {
+      "enabled": true,
+      "type": "local",
+      "command": ["agentmemory", "mcp"],
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--no-usage-statistics", "--no-performance-crux", "--slim"],
+    },
+    "markitdown": {
+      "type": "local",
+      "command": ["markitdown-mcp"],
+    },
+    "sequential-thinking": {
+      "enabled": true,
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
+    },
+    "github": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+    },
+  },
+  "lsp": true,
+}
