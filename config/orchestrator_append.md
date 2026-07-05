@@ -35,6 +35,7 @@
 
 ### 明确的小任务
 "修个 bug"、"改个样式"、"加个字段"
+→ **先检测是否含版本关键词（v1/v2/release/）→ 如有，优先走跨版本路由**
 → 直接派 @fixer，不走 spec 流程
 → 修复后自动跑 lint + semgrep
 → 修复记录 → `docs/trail/fixes/<date>-<slug>.md`
@@ -43,13 +44,18 @@
 "找不到原因"、"难复现"、"调了一小时没头绪"
 → 派 @fixer + 加载 `/diagnosing-bugs`
 → 走六步循环：复现→最小化→假设→仪器→修复→回归测试
-→ 修复后自动跑 lint + semgrep
+→ 修复后先跑 semgrep → 有报错退回修复，直到清洁
+→ 再跑回归测试 → 全绿通过
 → 修复记录 → `docs/trail/fixes/<date>-<slug>.md`（含诊断过程）
 
 ### 架构改进
 "重构"、"提升质量"、"这模块太烂"
 → 派 @fixer + 加载 `/codebase-design`
 → 深度模块化思路：找接缝、做适配器、加测试
+→ 重构后跑现有测试 → 必须全绿
+→ 跑 lint + semgrep
+→ 产出 `refactor-summary.md` 记录改动和原因
+→ 写入 `docs/spec/lessons/`（架构决策、踩坑记录）
 
 ### TDD 实现（强制）
 "用测试驱动"、"先写测试"、"TDD"
@@ -276,6 +282,12 @@ Semgrep 通过后 → @oracle 回验 PRD：
 → 确定影响的最老版本 → `git checkout release/v<版本>`
 → 走诊断 + 修复流程
 → cherry-pick 到所有受影响版本 + main
+→ cherry-pick 遇到冲突 →
+  1. 标记冲突文件，分析双方变更意图
+  2. 自动合并无冲突部分
+  3. 无法自动合并的块 → 提示用户人工介入
+  4. 冲突解决后每个目标分支跑回归验证
+→ 结果记录到 fix 记录中
 → 每个目标分支跑回归验证
 
 **"新功能要在 v2 里"、"基于 v1 开发新版本"**
