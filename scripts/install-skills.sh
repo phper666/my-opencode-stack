@@ -142,5 +142,21 @@ else
   done
 fi
 
+# ===== hv-analysis 横纵研究 skill =====
+echo "=== 安装 hv-analysis skill ==="
+if [ -d "$SKILLS_DIR/hv-analysis" ]; then
+  echo "  ✅ hv-analysis 已存在"
+else
+  npx skills add KKKKhazix/khazix-skills --skill hv-analysis -y
+  # 复制到 .config（npx 可能装到 .agents/）
+  for src in "$HOME/AI/.agents/skills/hv-analysis" "$HOME/.local/share/opencode/skills/hv-analysis"; do
+    if [ -d "$src" ]; then
+      cp -r "$src" "$SKILLS_DIR/hv-analysis"
+      break
+    fi
+  done
+  [ -d "$SKILLS_DIR/hv-analysis" ] && echo "  ✅ hv-analysis 已就绪" || echo "  ⚠️ hv-analysis 未找到"
+fi
+
 echo "=== Skills 安装完成 ==="
 echo "实际数量：$(ls "$SKILLS_DIR" | wc -l | tr -d ' ') 个"

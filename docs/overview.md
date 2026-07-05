@@ -65,6 +65,7 @@
 | **rohitg00/agentmemory** | 6 个 skill（agentmemory-mcp-tools、recall、remember 等）— **全部** | https://github.com/rohitg00/agentmemory | `install-skills.sh` |
 | **dietrichgebert/ponytail** | 1 个 skill（ponytail）— **全部** | https://github.com/DietrichGebert/ponytail | `install-skills.sh` |
 | **tanweai/pua** | 12 个 PUA 鞭策 skill（pua、p10、p7、p9、pro、yes、mama、ding 等）— **全部** | https://github.com/tanweai/pua | `install-skills.sh` 克隆仓库 + symlink |
+| **KKKKhazix/khazix-skills** | hv-analysis 横纵分析法深度研究 skill | https://github.com/KKKKhazix/khazix-skills | `install-skills.sh` npx install |
 | **nodnarbnitram/claude-code-extensions** | 多个 skill 中用了其中 1 个（tauri-v2）| https://github.com/nodnarbnitram/claude-code-extensions | `install-skills.sh` |
 | **jeffallan/claude-skills** | 多个 skill 中用了其中 1 个（rust-engineer）| https://github.com/jeffallan/claude-skills | `install-skills.sh` |
 | **martinholovsky/claude-skills-generator** | 多个 skill 中用了其中 1 个（sqlite-database-expert）| https://github.com/martinholovsky/claude-skills-generator | `install-skills.sh` |
