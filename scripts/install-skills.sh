@@ -87,5 +87,24 @@ install_tag_repo "nodnarbnitram/claude-code-extensions@tauri-v2"     "tauri-v2"
 install_tag_repo "jeffallan/claude-skills@rust-engineer"             "rust-engineer"
 install_tag_repo "martinholovsky/claude-skills-generator@SQLite Database Expert" "SQLite Database Expert"
 
+# ===== brainstorming skill（魔改版） =====
+REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+echo "=== 安装 brainstorming skill ==="
+if [ -d "$SKILLS_DIR/brainstorming" ]; then
+  echo "  ✅ skill brainstorming 已存在"
+else
+  npx skills add obra/superpowers --skill brainstorming -y
+fi
+# 魔改版覆盖（输出路径 + 转交逻辑）
+cp "$REPO_DIR/skills/brainstorming/SKILL.md" "$SKILLS_DIR/brainstorming/SKILL.md"
+cp "$REPO_DIR/skills/brainstorming/visual-companion.md" "$SKILLS_DIR/brainstorming/visual-companion.md"
+
+echo "=== 安装 grill-me skill ==="
+if [ -d "$SKILLS_DIR/grill-me" ]; then
+  echo "  ✅ skill grill-me 已存在"
+else
+  npx skills add mattpocock/skills --skill grill-me -y
+fi
+
 echo "=== Skills 安装完成 ==="
 echo "实际数量：$(ls "$SKILLS_DIR" | wc -l | tr -d ' ') 个"

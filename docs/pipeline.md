@@ -6,7 +6,7 @@
 
 | # | 步骤 | 谁做 | 产出 |
 |:-:|:----|:-----|:-----|
-| 1 | **PRD** | `/to-prd + /grill-me` | `01-prd.md` + `plan.md`（含 DAG）|
+| 1 | **需求探索+PRD** | brainstorming → /grill-me → /to-prd | `01-prd.md` + `plan.md`（含 DAG）|
 | 2 | **设计** | `@designer` 按技术栈分流 | `02-design.md` |
 | 3 | **架构审查** | `@oracle` | `03-architecture.md`（含 TDD 例外裁定）|
 | 4 | **代码设计** | `@oracle + @fixer` | `04-code-design.md`（必含接口类型契约）|

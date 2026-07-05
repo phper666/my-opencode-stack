@@ -3,10 +3,16 @@
 按需求类型自动选 skill 和路由：
 
 ### 模糊新需求
-"我想要 X"、"加个 Y 功能"、"做个 Z 特性"
-→ 自动调 `/to-prd` 生成 PRD
-→ 自动调 `/to-issues` 拆成独立任务（产物 → `docs/trail/changes/<feature>/plan.md`）
-→ 派给 @fixer 实现
+"我想要 X"、"加个 Y 功能"、"做个 Z 特性"、"需求不太清晰"
+→ 加载 Superpowers brainstorming skill
+  → 探索上下文 → 提问澄清 → 提 2-3 方案 → 逐节展示设计 → 写 design doc
+  → 如果需求过大，自动拆为多个子功能，各产独立 design.md
+→ 加载 grill-me skill 拷打设计决策
+  → 逐分支追问 → 如有问题修改 design.md → 确认
+→ orchestrator 读 design.md 作上下文
+→ 自动调 `/to-prd` 合成 PRD
+→ 自动调 `/to-issues` 拆成独立任务（含 DAG 依赖图，产物 → `docs/trail/changes/<feature>/plan.md`）
+→ 正常走 10 步管道
 
 ### 大需求分解（领域归属判断 + 依赖图）
 当需求涉及支付、订单、用户等已有领域时，在步骤 1 之前先判断：
