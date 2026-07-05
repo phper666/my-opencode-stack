@@ -23,9 +23,14 @@ npx skills add mattpocock/skills --skill resolving-merge-conflicts -y
 # agentmemory skills
 npx skills add rohitg00/agentmemory -y
 
-# 工具类 skills
+# 工具类 skills — anthropics/skills
 npx skills add anthropics/skills --skill frontend-design -y
 npx skills add anthropics/skills --skill skill-creator -y
+npx skills add anthropics/skills --skill api-design -y
+npx skills add anthropics/skills --skill e2e-testing -y
+npx skills add anthropics/skills --skill shadcn -y
+npx skills add anthropics/skills --skill taste-skill -y
+npx skills add anthropics/skills --skill minimalist-ui -y
 npx skills add vercel-labs/skills --skill find-skills -y
 npx skills add timescale/pg-aiguide --skill postgres -y
 npx skills add nodnarbnitram/claude-code-extensions@tauri-v2 -y
