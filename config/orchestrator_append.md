@@ -40,7 +40,7 @@
 → **先检测是否含版本关键词（v1/v2/release/）→ 如有，优先走跨版本路由**
 → 直接派 @fixer，不走 spec 流程
 → 修复后自动跑 lint + semgrep
-→ 修复记录 → `docs/trail/fixes/<date>-<slug>.md`
+→ 修复记录 → `docs/trail/fixes/<version>/<date>-<slug>.md`
 
 ### Bug 排查
 "找不到原因"、"难复现"、"调了一小时没头绪"
@@ -48,7 +48,7 @@
 → 走六步循环：复现→最小化→假设→仪器→修复→回归测试
 → 修复后先跑 semgrep → 有报错退回修复，直到清洁
 → 再跑回归测试 → 全绿通过
-→ 修复记录 → `docs/trail/fixes/<date>-<slug>.md`（含诊断过程）
+→ 修复记录 → `docs/trail/fixes/<version>/<date>-<slug>.md`（含诊断过程）
 
 ### 架构改进
 "重构"、"提升质量"、"这模块太烂"
@@ -208,12 +208,12 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - 不跑 test（步骤 5 TDD 已覆盖）
 
 7. **Code Review** → `@fixer` 分两步：
-   - ① `ocr review --audience agent`（正确性）→ 修 high/medium → 重审干净
+   - ① `ocr review --audience agent`（正确性）→ 修 high/medium → 重审 ≤3 轮 → 超限 @oracle 裁定
    - ② ponytail-review（过度设计）→ 列简化清单 → 追加到 `07-code-review.md`
    — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
 8. **安全扫描** → `@fixer semgrep --config=auto`（SQL注入、XSS、硬编码密钥等）
-   — 有报错让 @fixer 修复并重扫，直到无报错
+   — 有报错让 @fixer 修复并重扫，≤3 轮 → 超限 @oracle 裁定
 
 9. **回验** → `@oracle`：
    - 读取 PRD 需求清单 + 验收 checklist + 代码变更
