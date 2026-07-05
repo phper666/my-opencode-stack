@@ -243,6 +243,14 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 对常见命令（ls, find, git, grep, cargo test, npm list 等），优先用 `rtk <command>` 替代裸命令
 - 例：`rtk ls -la`、`rtk git status`、`rtk find . -name "*.ts"`、`rtk cargo check`
 
+### 全栈环境复刻
+"换新电脑"、"复刻环境"、"在新机器上搭建开发环境"
+→ 找到 `~/AI/my-opencode-stack/` 或用户指定的 my-opencode-stack 目录
+→ 读 `README.md`（开头有 AI 指令）
+→ 读 `environment-setup-guide.md` 并逐行执行
+→ 遇到 `<PLACEHOLDER_>` 立即停下询问用户
+→ 装完验证 → 告诉用户重启 OpenCode
+
 ### 项目初始化（新项目必做）
 新项目启动时，按以下顺序执行：
 1. `/init-project <name> <type>` — 初始化目录结构
