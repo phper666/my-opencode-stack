@@ -106,15 +106,12 @@ if [ ! -d "$SKILLS_DIR/grill-me" ]; then
 fi
 # 确保 .config 目录存在（npx skills add 可能装到 .agents/）
 if [ ! -d "$SKILLS_DIR/grill-me" ]; then
-  for src in "$HOME/AI/.agents/skills/grill-me" "$HOME/.local/share/opencode/skills/grill-me"; do
-    if [ -d "$src" ]; then
-      cp -r "$src" "$SKILLS_DIR/grill-me"
-      echo "  ✅ grill-me 已复制到 .config"
-      break
-    fi
-  done
-  if [ ! -d "$SKILLS_DIR/grill-me" ]; then
-    echo "  ⚠️ grill-me 未找到，请手动检查"
+  SRC=$(find "$HOME" -maxdepth 5 -path "*/skills/grill-me" -type d 2>/dev/null | head -1)
+  if [ -n "$SRC" ]; then
+    cp -r "$SRC" "$SKILLS_DIR/grill-me"
+    echo "  ✅ grill-me 已复制到 .config（来自 $SRC）"
+  else
+    echo "  ⚠️ grill-me 未找到安装位置，请手动: npx skills add mattpocock/skills --skill grill-me -y"
   fi
 fi
 

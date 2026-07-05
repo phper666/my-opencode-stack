@@ -129,7 +129,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
 ### 全链路触发规则
 当用户描述一个新功能需求时，Orchestrator 自动按以下顺序执行：
 
-1. **PRD** → `/to-prd + /grill-me`（需求分析 → PRD）
+1. **需求探索+PRD** → brainstorming → /grill-me → /to-prd
 
 2. **设计** → 按项目技术栈分流：
    - 有 UI 层（React/Vue/Svelte/Tauri 前端等）→ `@designer /prototype`
@@ -185,7 +185,9 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - **退回 ≥2 次**（同一类问题）→ @oracle 介入
    - 不跑 test（步骤 5 TDD 已覆盖）
 
-7. **Code Review** → `@fixer open-code-review`（线级 bug、逻辑错误、规范违例）
+7. **Code Review** → `@fixer` 分两步：
+   - ① `ocr review --audience agent`（正确性）→ 修 high/medium → 重审干净
+   - ② ponytail-review（过度设计）→ 列简化清单 → 追加到 `07-code-review.md`
    — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
 8. **安全扫描** → `@fixer semgrep --config=auto`（SQL注入、XSS、硬编码密钥等）
@@ -367,8 +369,9 @@ Semgrep 通过后 → @oracle 回验 PRD：
 
 流水线阶段完成后，保存产物到 `docs/trail/`：
 
-- **步骤 1**（PRD）→ `docs/trail/changes/<id>/01-prd.md`
-  — PRD 定稿后 /to-issues 产出 `plan.md`（任务拆解，子功能 ≥2 时含 DAG）
+- **步骤 1**（需求探索+PRD）→ `docs/trail/changes/<id>/01-prd.md`
+  — brainstorming 产出 `brainstorm/design.md`（如拆子功能则多个文件）
+  — /to-issues 产出 `plan.md`（任务拆解，子功能 ≥2 时含 DAG）
 - **步骤 2**（设计）→ `docs/trail/changes/<id>/02-design.md`
 - **步骤 3**（架构审查）→ `docs/trail/changes/<id>/03-architecture.md`
   — 包含：领域归属判断、TDD 例外裁定
