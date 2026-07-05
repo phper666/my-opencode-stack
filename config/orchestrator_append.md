@@ -11,7 +11,7 @@
   → 逐分支追问 → 如有问题修改 design.md → 确认
 → orchestrator 读 design.md 作上下文
 → 自动调 `/to-prd` 合成 PRD
-→ 自动调 `/to-issues` 拆成独立任务（含 DAG 依赖图，产物 → `docs/trail/changes/<feature>/plan.md`）
+→ 自动调 `/to-issues` 拆成独立任务（含 DAG 依赖图，产物 → `docs/trail/changes/<version>/<feature-id>/plan.md`）
 → 正常走 10 步管道
 
 ### 大需求分解（领域归属判断 + 依赖图）
