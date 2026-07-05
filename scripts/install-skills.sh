@@ -115,5 +115,27 @@ if [ ! -d "$SKILLS_DIR/grill-me" ]; then
   fi
 fi
 
+# ===== PUA 鞭策 skill（tanweai/pua） =====
+PUA_REPO_DIR="$REPO_DIR/.cache/pua"
+echo "=== 安装 PUA skills ==="
+if [ -d "$SKILLS_DIR/pua" ]; then
+  echo "  ✅ pua 已存在"
+  # 拉取更新
+  if [ -d "$PUA_REPO_DIR" ]; then
+    git -C "$PUA_REPO_DIR" pull --ff-only 2>/dev/null || true
+  fi
+else
+  mkdir -p "$(dirname "$PUA_REPO_DIR")"
+  git clone https://github.com/tanweai/pua.git "$PUA_REPO_DIR"
+  # symlink 所有子 skill
+  for skill_dir in "$PUA_REPO_DIR/skills"/*/; do
+    name=$(basename "$skill_dir")
+    if [ ! -e "$SKILLS_DIR/$name" ]; then
+      ln -s "$skill_dir" "$SKILLS_DIR/$name"
+      echo "  ✅ $name"
+    fi
+  done
+fi
+
 echo "=== Skills 安装完成 ==="
 echo "实际数量：$(ls "$SKILLS_DIR" | wc -l | tr -d ' ') 个"
