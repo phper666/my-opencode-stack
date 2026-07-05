@@ -31,6 +31,7 @@ fi
 
 echo "=== 6. 复制插件 ==="
 cp "$REPO_DIR/plugins/rtk.js" "$PLUGIN_DIR/rtk.js"
+cp "$REPO_DIR/plugins/agentmemory-capture.js" "$PLUGIN_DIR/agentmemory-capture.js"
 cp "$REPO_DIR/plugins/agentmemory-capture.ts" "$PLUGIN_DIR/agentmemory-capture.ts"
 
 echo "=== 6. 复制 trail 模板 ==="
