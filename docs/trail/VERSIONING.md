@@ -28,6 +28,8 @@ release/v2        ← v2 稳定版
 
 orchestrator 在修复完成后自动执行 cherry-pick，并在每个目标分支跑回归验证。
 
+cherry-pick 完成后，各版本按各自的 release-checklist 执行发布流程（打包、签名、部署等——由项目自身的 CI/CD 或 `.opencode/rules/release-checklist.md` 定义）。
+
 ## 新功能开发
 
 ```
