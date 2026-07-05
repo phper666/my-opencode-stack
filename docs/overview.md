@@ -10,7 +10,7 @@
 |:----|:---------|:----:|
 | **专业 AI 角色** | 8 个 agent：orchestrator / oracle / designer / fixer / librarian / explorer / observer / council | 8 |
 | **工程技能** | Matt Pocock skills（PRD → 实现 → 审查 → 回验） | 14 |
-| **领域技能** | 语言无关核心 + 语言特化：PostgreSQL / SQLite / Tauri / Rust / Playwright / shadcn / REST API | 20+ |
+| **领域技能** | PostgreSQL / SQLite / Tauri / Rust / Playwright E2E / shadcn UI / REST API 设计 / 前端设计系统 | 20+ |
 | **长期记忆** | agentmemory（L0-L3，51 个 MCP 工具）| 1 |
 | **代码理解** | codebase-memory-mcp（代码知识图谱 + 调用关系追踪）| 1 |
 | **工具集成** | GitHub / 浏览器调试 / 文件转 Markdown / 结构化推理 | 4 MCP |
