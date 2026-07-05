@@ -36,12 +36,14 @@
 ### 明确的小任务
 "修个 bug"、"改个样式"、"加个字段"
 → 直接派 @fixer，不走 spec 流程
+→ 修复后自动跑 lint + semgrep
 → 修复记录 → `docs/trail/fixes/<date>-<slug>.md`
 
 ### Bug 排查
 "找不到原因"、"难复现"、"调了一小时没头绪"
 → 派 @fixer + 加载 `/diagnosing-bugs`
 → 走六步循环：复现→最小化→假设→仪器→修复→回归测试
+→ 修复后自动跑 lint + semgrep
 → 修复记录 → `docs/trail/fixes/<date>-<slug>.md`（含诊断过程）
 
 ### 架构改进

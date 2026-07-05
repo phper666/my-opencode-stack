@@ -26,24 +26,26 @@ bash scripts/setup-all.sh
 ```
 my-opencode-stack/
 ├── environment-setup-guide.md   ← AI 可执行的复刻文档
-├── config/
-│   ├── opencode.jsonc            ← OpenCode 核心配置（含 providers + MCPs）
-│   ├── oh-my-opencode-slim.json  ← 8 agent 模型分配
-│   ├── orchestrator_append.md    ← 路由规则 + 10 步管道
-│   ├── agentmemory.env           ← 记忆服务环境变量模板
-│   ├── agentmemory.plist         ← macOS 开机自启
-│   └── opencodereview-config.json← code review LLM 配置
-├── plugins/
-│   ├── rtk.js                    ← token 压缩
-│   └── agentmemory-capture.ts    ← 记忆采集
+├── config/                       ← 全部配置文件（API Key 用占位符）
+├── plugins/                      ← OpenCode 插件（rtk + agentmemory-capture）
+├── skills/                       ← 魔改版 brainstorming skill
 ├── scripts/
-│   ├── setup-all.sh              ← 一键安装全部
-│   ├── install-system.sh         ← brew + npm
+│   ├── lib/manifest.sh           ← 安装记录 manifest 读写
+│   ├── install-system.sh         ← brew + npm + pip
+│   ├── install-codebase-memory.sh← 代码知识图谱二进制
 │   ├── install-config.sh         ← 复制配置文件
 │   ├── install-skills.sh         ← 批量安装 skills
-│   └── install-docker.sh         ← Docker 容器
+│   ├── install-docker.sh         ← Docker 验证
+│   ├── setup-all.sh              ← 一键安装全部
+│   └── uninstall.sh              ← 一键卸载（基于 manifest）
 ├── templates/
 │   └── trail-templates/          ← trail 产物模板
+├── docs/
+│   ├── overview.md               ← 项目介绍 + 能力清单
+│   ├── pipeline.md               ← 10 步管道 + 实战样例
+│   └── trail/VERSIONING.md       ← 跨版本分支策略
+├── .githooks/
+│   └── pre-commit                ← 秘钥防误提交 hook
 └── start-env.sh                  ← 日常启动
 ```
 
