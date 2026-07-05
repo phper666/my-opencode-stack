@@ -3,6 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/lib/manifest.sh"
+manifest_init
 
 echo "=== 批量安装 OpenCode Skills ==="
 echo "需先登录 opencode auth login"
@@ -90,20 +91,31 @@ install_tag_repo "martinholovsky/claude-skills-generator@SQLite Database Expert"
 # ===== brainstorming skill（魔改版） =====
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 echo "=== 安装 brainstorming skill ==="
-if [ -d "$SKILLS_DIR/brainstorming" ]; then
-  echo "  ✅ skill brainstorming 已存在"
-else
+if [ ! -d "$SKILLS_DIR/brainstorming" ]; then
   npx skills add obra/superpowers --skill brainstorming -y
 fi
+# 确保 .config 目录存在（npx skills add 可能装到 .agents/）
+mkdir -p "$SKILLS_DIR/brainstorming"
 # 魔改版覆盖（输出路径 + 转交逻辑）
 cp "$REPO_DIR/skills/brainstorming/SKILL.md" "$SKILLS_DIR/brainstorming/SKILL.md"
 cp "$REPO_DIR/skills/brainstorming/visual-companion.md" "$SKILLS_DIR/brainstorming/visual-companion.md"
 
 echo "=== 安装 grill-me skill ==="
-if [ -d "$SKILLS_DIR/grill-me" ]; then
-  echo "  ✅ skill grill-me 已存在"
-else
+if [ ! -d "$SKILLS_DIR/grill-me" ]; then
   npx skills add mattpocock/skills --skill grill-me -y
+fi
+# 确保 .config 目录存在（npx skills add 可能装到 .agents/）
+if [ ! -d "$SKILLS_DIR/grill-me" ]; then
+  for src in "$HOME/AI/.agents/skills/grill-me" "$HOME/.local/share/opencode/skills/grill-me"; do
+    if [ -d "$src" ]; then
+      cp -r "$src" "$SKILLS_DIR/grill-me"
+      echo "  ✅ grill-me 已复制到 .config"
+      break
+    fi
+  done
+  if [ ! -d "$SKILLS_DIR/grill-me" ]; then
+    echo "  ⚠️ grill-me 未找到，请手动检查"
+  fi
 fi
 
 echo "=== Skills 安装完成 ==="
