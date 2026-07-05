@@ -61,7 +61,8 @@
 | **codebase-memory-mcp** | 代码知识图谱 | https://github.com/DeusData/codebase-memory-mcp | `install-codebase-memory.sh` GitHub Release |
 | **mattpocock/skills** | 14 个工程 skill（to-prd、tdd 等）— **全部** | https://github.com/mattpocock/skills | `install-skills.sh` |
 | **anthropics/skills** | 40+ skill 中用了其中 7 个（taste-skill、minimalist-ui、shadcn、api-design、e2e-testing、frontend-design）| https://github.com/anthropics/skills | `install-skills.sh` |
-| **anthropics/claude-plugins-official** | 多个 plugin 中用了其中 1 个（skill-creator）| https://github.com/anthropics/claude-plugins-official | `install-skills.sh` |
+| **rohitg00/agentmemory** | 6 个 skill（agentmemory-mcp-tools、recall、remember 等）— **全部** | https://github.com/rohitg00/agentmemory | `install-skills.sh` |
+| **dietrichgebert/ponytail** | 1 个 skill（ponytail）— **全部** | https://github.com/DietrichGebert/ponytail | `install-skills.sh` |
 | **nodnarbnitram/claude-code-extensions** | 多个 skill 中用了其中 1 个（tauri-v2）| https://github.com/nodnarbnitram/claude-code-extensions | `install-skills.sh` |
 | **jeffallan/claude-skills** | 多个 skill 中用了其中 1 个（rust-engineer）| https://github.com/jeffallan/claude-skills | `install-skills.sh` |
 | **martinholovsky/claude-skills-generator** | 多个 skill 中用了其中 1 个（sqlite-database-expert）| https://github.com/martinholovsky/claude-skills-generator | `install-skills.sh` |
