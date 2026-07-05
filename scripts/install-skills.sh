@@ -36,7 +36,7 @@ npx skills add timescale/pg-aiguide --skill postgres -y
 npx skills add nodnarbnitram/claude-code-extensions@tauri-v2 -y
 npx skills add jeffallan/claude-skills@rust-engineer -y
 npx skills add "martinholovsky/claude-skills-generator@SQLite Database Expert" -y
-npx skills add dietrichgebert/ponytail -y
+# ponytail 是 plugin（已配在 opencode.jsonc），OpenCode 自动加载，无需 skill
 
 echo "=== Skills 安装完成 ==="
 echo "实际数量：$(ls ~/.config/opencode/skills/ | wc -l | tr -d ' ') 个"
