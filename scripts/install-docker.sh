@@ -1,19 +1,6 @@
 #!/bin/bash
-set -e
-
-echo "=== 启动 Docker 容器 ==="
-
-# Nginx 反向代理
-docker run -d --name api-redirect --restart unless-stopped \
-  -p 80:80 -p 443:443 \
-  nginx:alpine
-
-# TaskBoard 项目
-docker run -d --name taskboard-mysql --restart unless-stopped \
-  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:8.0
-
-docker run -d --name taskboard-redis --restart unless-stopped \
-  -p 6379:6379 redis:7-alpine
-
-echo "=== Docker 容器启动完成 ==="
-docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+echo "=== Docker ==="
+echo "本环境不依赖 Docker 容器。"
+echo "如有项目需要 Docker（MySQL/Redis 等），由项目自行管理。"
+echo "验证 Docker 可用性："
+docker info >/dev/null 2>&1 && echo "✅ Docker 已安装" || echo "❌ Docker 未安装"

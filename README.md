@@ -49,7 +49,7 @@ my-opencode-stack/
 | OpenCode Go API Key | 多种开源模型 | ✅ |
 | Git 用户名 + 邮箱 | — | ✅ |
 | macOS | 当前仅支持 macOS | ✅ |
-| Docker Desktop | 运行容器 | ✅ |
+| Docker Desktop | 可选，项目需要时安装 | ❌ |
 
 ## License
 

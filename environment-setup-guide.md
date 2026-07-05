@@ -67,25 +67,9 @@ pip3 install markitdown-mcp
 
 ---
 
-## 2. Docker 容器
+## 2. Docker
 
-```bash
-# Nginx 反向代理
-docker run -d --name api-redirect --restart unless-stopped \
-  -p 80:80 -p 443:443 nginx:alpine
-
-# TaskBoard
-docker run -d --name taskboard-mysql --restart unless-stopped \
-  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:8.0
-docker run -d --name taskboard-redis --restart unless-stopped \
-  -p 6379:6379 redis:7-alpine
-```
-
-验证：
-
-```bash
-docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-```
+本环境不依赖 Docker。项目所需容器（MySQL/Redis 等）由对应项目自行管理。
 
 ---
 

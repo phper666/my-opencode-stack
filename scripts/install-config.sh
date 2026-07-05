@@ -23,7 +23,13 @@ cp "$REPO_DIR/config/opencodereview-config.json" "$HOME/.opencodereview/config.j
 echo "=== 4. 复制 agentmemory 配置 ==="
 cp "$REPO_DIR/config/agentmemory.env" "$HOME/.agentmemory/.env"
 
-echo "=== 5. 复制插件 ==="
+echo "=== 5. 安装插件依赖 ==="
+if [ ! -f "$CONFIG_DIR/package.json" ]; then
+  echo '{"type":"module","dependencies":{}}' > "$CONFIG_DIR/package.json"
+fi
+(cd "$CONFIG_DIR" && npm install @opencode-ai/plugin@latest context-mode@latest --save 2>/dev/null)
+
+echo "=== 6. 复制插件 ==="
 cp "$REPO_DIR/plugins/rtk.js" "$PLUGIN_DIR/rtk.js"
 cp "$REPO_DIR/plugins/agentmemory-capture.ts" "$PLUGIN_DIR/agentmemory-capture.ts"
 

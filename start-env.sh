@@ -9,8 +9,8 @@ agentmemory --tools all &
 echo "等待 agentmemory 就绪..."
 sleep 3
 
-# 健康检查
 echo -n "agentmemory: "
 curl -s http://localhost:3111/health | python3 -c "import json,sys; print('✅' if json.load(sys.stdin).get('status')=='ok' else '❌')" 2>/dev/null || echo "⚠️ 未运行"
 
+echo ""
 echo "环境就绪。启动 OpenCode Desktop 即可。"

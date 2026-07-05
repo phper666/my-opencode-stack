@@ -18,19 +18,22 @@ if grep -r "PLACEHOLDER_" config/ --include="*.json" --include="*.env" --include
   exit 1
 fi
 
-echo "1/5 安装系统依赖..."
+echo "1/6 安装系统依赖..."
 bash scripts/install-system.sh
 
-echo "2/5 安装 Skills..."
+echo "2/6 安装 codebase-memory-mcp..."
+bash scripts/install-codebase-memory.sh
+
+echo "3/6 安装 Skills..."
 bash scripts/install-skills.sh
 
-echo "3/5 复制配置文件..."
+echo "4/6 复制配置文件..."
 bash scripts/install-config.sh
 
-echo "4/5 启动 Docker 容器..."
+echo "5/6 验证 Docker..."
 bash scripts/install-docker.sh
 
-echo "5/5 启动本地服务..."
+echo "6/6 启动本地服务..."
 bash start-env.sh
 
 echo ""
