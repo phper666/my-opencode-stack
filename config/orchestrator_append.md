@@ -250,6 +250,38 @@ Semgrep 通过后 → @oracle 回验 PRD：
 → 列出差异清单，逐项问用户要不要同步
 → 用户确认后更新文件 → git commit + push
 
+### 全栈环境升级
+"升级全栈环境"、"全栈环境升级"、"检查环境更新"
+→ 逐项检查可升级项：
+   1. `brew outdated` — 列出可升级的包 + 版本变化
+   2. `npm outdated -g` — 列出可升级的全局包 + 版本变化
+   3. codebase-memory-mcp — 检查 GitHub Releases 是否有新版本
+   4. Skills — 检查每个已安装 skill 是否有新版本
+      → 读取对应仓库的 release notes / changelog
+      → 如有不兼容变更（breaking changes），标注 ⚠️ 并说明
+→ 汇总报告，格式：
+
+   ```
+   📦 可升级清单
+
+   brew（3 个可升级）:
+     rtk:      0.43.0 → 0.44.0 🟢 无 breaking
+     semgrep:  1.168.0 → 1.172.0 🟢 无 breaking
+
+   npm 全局（1 个可升级）:
+     agentmemory: 0.9.27 → 0.10.0 ⚠️ 有 breaking（DB schema 变更）
+
+   Skills（2 个可升级）:
+     to-prd:     ⚠️ 输出格式变更，影响 orchestrator_append.md 路由规则
+     tdd:        🟢 无 breaking
+
+   codebase-memory-mcp: 已是最新 ✅
+
+   是否全部升级？还是跳过某些项？
+   ```
+
+→ 用户勾选后，逐项执行升级 + 验证
+
 ### 全栈环境复刻
 "换新电脑"、"复刻环境"、"在新机器上搭建开发环境"
 → 找到 `~/AI/my-opencode-stack/` 或用户指定的 my-opencode-stack 目录
