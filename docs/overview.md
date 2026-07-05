@@ -10,6 +10,7 @@
 |:----|:---------|:----:|
 | **专业 AI 角色** | 8 个 agent：orchestrator / oracle / designer / fixer / librarian / explorer / observer / council | 8 |
 | **工程技能** | Matt Pocock skills + Superpowers brainstorming（需求探索 → PRD → 实现 → 审查 → 回验） | 16 |
+| **鞭策/生产力** | PUA 鞭策 + 大厂方法论路由 — 穷尽方案后再放弃 | 12 |
 | **领域技能** | PostgreSQL / SQLite / Tauri / Rust / Playwright E2E / shadcn UI / REST API 设计 / 前端设计系统 | 20+ |
 | **长期记忆** | agentmemory（L0-L3，51 个 MCP 工具）| 1 |
 | **代码理解** | codebase-memory-mcp（代码知识图谱 + 调用关系追踪）| 1 |
@@ -63,6 +64,7 @@
 | **anthropics/skills** | 40+ skill 中用了其中 7 个（taste-skill、minimalist-ui、shadcn、api-design、e2e-testing、frontend-design）| https://github.com/anthropics/skills | `install-skills.sh` |
 | **rohitg00/agentmemory** | 6 个 skill（agentmemory-mcp-tools、recall、remember 等）— **全部** | https://github.com/rohitg00/agentmemory | `install-skills.sh` |
 | **dietrichgebert/ponytail** | 1 个 skill（ponytail）— **全部** | https://github.com/DietrichGebert/ponytail | `install-skills.sh` |
+| **tanweai/pua** | 12 个 PUA 鞭策 skill（pua、p10、p7、p9、pro、yes、mama、ding 等）— **全部** | https://github.com/tanweai/pua | `install-skills.sh` 克隆仓库 + symlink |
 | **nodnarbnitram/claude-code-extensions** | 多个 skill 中用了其中 1 个（tauri-v2）| https://github.com/nodnarbnitram/claude-code-extensions | `install-skills.sh` |
 | **jeffallan/claude-skills** | 多个 skill 中用了其中 1 个（rust-engineer）| https://github.com/jeffallan/claude-skills | `install-skills.sh` |
 | **martinholovsky/claude-skills-generator** | 多个 skill 中用了其中 1 个（sqlite-database-expert）| https://github.com/martinholovsky/claude-skills-generator | `install-skills.sh` |
