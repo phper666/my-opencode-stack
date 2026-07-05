@@ -46,34 +46,31 @@
 
 ## 引用的项目
 
-| 项目 | 用途 | 链接 | 必须 |
-|:----|:-----|:----|:----:|
-| **OpenCode** | AI 编码 IDE，本环境的基础 | https://github.com/opencode-ai/opencode | ✅ |
-| **oh-my-opencode-slim** | 8 agent 编排插件，路由规则 + 模型分配 | https://github.com/code-yeongyu/oh-my-opencode-slim | ✅ |
-| **agentmemory** | 长期记忆系统（51 个 MCP 工具，L0-L3 记忆管道）| https://www.npmjs.com/package/@agentmemory/agentmemory | ✅ |
-| **mattpocock/skills** | 14 个工程 skill（/to-prd、/tdd、/implement 等）| https://github.com/mattpocock/skills | ✅ |
-| **open-code-review** | 阿里巴巴线级代码审查工具 | https://github.com/alibaba/open-code-review | ✅ |
-| **semgrep** | 多语言安全扫描（30+ 语言）| https://github.com/semgrep/semgrep | ✅ |
-| **codebase-memory-mcp** | 代码知识图谱（调用关系追踪、架构分析）| https://github.com/DeusData/codebase-memory-mcp | ✅ |
-| **rtk** | CLI 输出 token 压缩（60-90% 节省）| https://github.com/rtk-ai/rtk | ✅ |
-| **ponytail** | OpenCode 插件，代码最小化原则 | https://github.com/DietrichGebert/ponytail | ✅ |
-| **context-mode** | OpenCode 插件，上下文保护（ctx_* 工具）| https://github.com/mksglu/context-mode | ✅ |
-| **opencode-token-monitor** | OpenCode 插件，token 用量监控 | https://www.npmjs.com/package/opencode-token-monitor | ✅ |
-| **@xenova/transformers** | 本地向量嵌入（agentmemory 本地 embedding）| https://www.npmjs.com/package/@xenova/transformers | ✅ |
-| **anthropics/skills** | 前端设计 skill（taste-skill、minimalist-ui）| https://github.com/anthropics/skills | ❌ 可选 |
-| **chrome-devtools-mcp** | 浏览器调试 MCP | https://github.com/ChromeDevTools/chrome-devtools-mcp | ❌ 可选 |
-| **markitdown-mcp** | 文件转 Markdown MCP | https://github.com/microsoft/markitdown | ❌ 可选 |
-| **server-sequential-thinking** | 结构化推理 MCP | https://github.com/modelcontextprotocol/servers | ❌ 可选 |
-| **server-github** | GitHub API 操作 MCP | https://github.com/modelcontextprotocol/servers | ❌ 可选 |
-| **find-skills** | Vercel skill 发现工具 | https://github.com/vercel-labs/skills | ❌ 可选 |
-| **api-design** | REST API 设计模式 skill | https://github.com/anthropics/skills | ❌ 可选 |
-| **e2e-testing** | Playwright E2E 测试 skill | https://github.com/anthropics/skills | ❌ 可选 |
-| **shadcn** | shadcn/ui 组件管理 skill | https://github.com/anthropics/skills | ❌ 可选 |
-| **tauri-v2** | Tauri v2 跨平台桌面开发 skill | https://github.com/nodnarbnitram/claude-code-extensions | ❌ 可选 |
-| **rust-engineer** | Rust 工程 skill（所有权、异步、错误处理）| https://github.com/jeffallan/claude-skills | ❌ 可选 |
-| **sqlite-database-expert** | SQLite 数据库 skill | https://github.com/martinholovsky/claude-skills-generator | ❌ 可选 |
-| **postgres** | PostgreSQL skill（TimescaleDB）| https://github.com/timescale/pg-aiguide | ❌ 可选 |
-| **skill-creator** | 创建/编辑 OpenCode skill | https://github.com/anthropics/claude-plugins-official | ❌ 可选 |
+| 项目 | 用途 | 链接 | 安装方式 |
+|:----|:-----|:----|:---------|
+| **OpenCode** | AI 编码 IDE，本环境的基础 | https://github.com/opencode-ai/opencode | 手动下载 |
+| **oh-my-opencode-slim** | 8 agent 编排插件 + 路由规则 | https://github.com/code-yeongyu/oh-my-opencode-slim | `opencode.jsonc` 插件声明，自动加载 |
+| **context-mode** | 上下文保护（ctx_* 工具）| https://github.com/mksglu/context-mode | `opencode.jsonc` 插件声明，自动加载 |
+| **opencode-token-monitor** | token 用量监控 | https://www.npmjs.com/package/opencode-token-monitor | `opencode.jsonc` 插件声明，自动加载 |
+| **ponytail** | 代码最小化原则 | https://github.com/DietrichGebert/ponytail | `opencode.jsonc` 插件声明，自动加载 |
+| **rtk** | CLI 输出 token 压缩 | https://github.com/rtk-ai/rtk | `install-system.sh` brew install |
+| **agentmemory** | 长期记忆（51 MCP 工具）| https://www.npmjs.com/package/@agentmemory/agentmemory | `install-system.sh` npm install -g |
+| **@xenova/transformers** | 本地向量嵌入 | https://www.npmjs.com/package/@xenova/transformers | `install-system.sh` npm install -g |
+| **semgrep** | 多语言安全扫描（30+ 语言）| https://github.com/semgrep/semgrep | `install-system.sh` brew install |
+| **open-code-review** | 阿里巴巴线级代码审查 | https://github.com/alibaba/open-code-review | `install-system.sh` npm install -g |
+| **codebase-memory-mcp** | 代码知识图谱 | https://github.com/DeusData/codebase-memory-mcp | `install-codebase-memory.sh` GitHub Release |
+| **mattpocock/skills** | 14 个工程 skill | https://github.com/mattpocock/skills | `install-skills.sh` npx skills add |
+| **anthropics/skills** | 前端设计 skill（taste-skill 等）| https://github.com/anthropics/skills | `install-skills.sh` npx skills add |
+| **tauri-v2** | Tauri v2 桌面开发 skill | https://github.com/nodnarbnitram/claude-code-extensions | `install-skills.sh` npx skills add |
+| **rust-engineer** | Rust 工程 skill | https://github.com/jeffallan/claude-skills | `install-skills.sh` npx skills add |
+| **sqlite-database-expert** | SQLite skill | https://github.com/martinholovsky/claude-skills-generator | `install-skills.sh` npx skills add |
+| **postgres** | PostgreSQL skill | https://github.com/timescale/pg-aiguide | `install-skills.sh` npx skills add |
+| **find-skills** | Vercel skill 发现 | https://github.com/vercel-labs/skills | `install-skills.sh` npx skills add |
+| **skill-creator** | 创建/编辑 skill | https://github.com/anthropics/claude-plugins-official | `install-skills.sh` npx skills add |
+| **chrome-devtools-mcp** | 浏览器调试 | https://github.com/ChromeDevTools/chrome-devtools-mcp | `opencode.jsonc` MCP 配置，首次调用时 npx 自动装 |
+| **markitdown-mcp** | 文件转 Markdown | https://github.com/microsoft/markitdown | `install-system.sh` pip 安装 |
+| **server-sequential-thinking** | 结构化推理 | https://github.com/modelcontextprotocol/servers | `opencode.jsonc` MCP 配置，npx 自动装 |
+| **server-github** | GitHub API 操作 | https://github.com/modelcontextprotocol/servers | `opencode.jsonc` MCP 配置，npx 自动装 |
 
 ### 语言覆盖
 
