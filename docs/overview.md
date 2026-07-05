@@ -59,18 +59,18 @@
 | **semgrep** | 多语言安全扫描（30+ 语言）| https://github.com/semgrep/semgrep | `install-system.sh` brew install |
 | **open-code-review** | 阿里巴巴线级代码审查 | https://github.com/alibaba/open-code-review | `install-system.sh` npm install -g |
 | **codebase-memory-mcp** | 代码知识图谱 | https://github.com/DeusData/codebase-memory-mcp | `install-codebase-memory.sh` GitHub Release |
-| **mattpocock/skills** | 14 个工程 skill | https://github.com/mattpocock/skills | `install-skills.sh` npx skills add |
-| **anthropics/skills** | 前端设计 skill（taste-skill 等）| https://github.com/anthropics/skills | `install-skills.sh` npx skills add |
-| **tauri-v2** | Tauri v2 桌面开发 skill | https://github.com/nodnarbnitram/claude-code-extensions | `install-skills.sh` npx skills add |
-| **rust-engineer** | Rust 工程 skill | https://github.com/jeffallan/claude-skills | `install-skills.sh` npx skills add |
-| **sqlite-database-expert** | SQLite skill | https://github.com/martinholovsky/claude-skills-generator | `install-skills.sh` npx skills add |
-| **postgres** | PostgreSQL skill | https://github.com/timescale/pg-aiguide | `install-skills.sh` npx skills add |
-| **find-skills** | Vercel skill 发现 | https://github.com/vercel-labs/skills | `install-skills.sh` npx skills add |
-| **skill-creator** | 创建/编辑 skill | https://github.com/anthropics/claude-plugins-official | `install-skills.sh` npx skills add |
+| **mattpocock/skills** | 14 个工程 skill（to-prd、tdd 等）— **全部** | https://github.com/mattpocock/skills | `install-skills.sh` |
+| **anthropics/skills** | 40+ skill 中用了其中 7 个（taste-skill、minimalist-ui、shadcn、api-design、e2e-testing、frontend-design）| https://github.com/anthropics/skills | `install-skills.sh` |
+| **anthropics/claude-plugins-official** | 多个 plugin 中用了其中 1 个（skill-creator）| https://github.com/anthropics/claude-plugins-official | `install-skills.sh` |
+| **nodnarbnitram/claude-code-extensions** | 多个 skill 中用了其中 1 个（tauri-v2）| https://github.com/nodnarbnitram/claude-code-extensions | `install-skills.sh` |
+| **jeffallan/claude-skills** | 多个 skill 中用了其中 1 个（rust-engineer）| https://github.com/jeffallan/claude-skills | `install-skills.sh` |
+| **martinholovsky/claude-skills-generator** | 多个 skill 中用了其中 1 个（sqlite-database-expert）| https://github.com/martinholovsky/claude-skills-generator | `install-skills.sh` |
+| **timescale/pg-aiguide** | 多个 skill 中用了其中 1 个（postgres）| https://github.com/timescale/pg-aiguide | `install-skills.sh` |
+| **vercel-labs/skills** | 多个 skill 中用了其中 1 个（find-skills）| https://github.com/vercel-labs/skills | `install-skills.sh` |
 | **chrome-devtools-mcp** | 浏览器调试 | https://github.com/ChromeDevTools/chrome-devtools-mcp | `opencode.jsonc` MCP 配置，首次调用时 npx 自动装 |
 | **markitdown-mcp** | 文件转 Markdown | https://github.com/microsoft/markitdown | `install-system.sh` pip 安装 |
-| **server-sequential-thinking** | 结构化推理 | https://github.com/modelcontextprotocol/servers | `opencode.jsonc` MCP 配置，npx 自动装 |
-| **server-github** | GitHub API 操作 | https://github.com/modelcontextprotocol/servers | `opencode.jsonc` MCP 配置，npx 自动装 |
+| **server-sequential-thinking** | 结构化推理 — 取自 modelcontextprotocol/servers（50+ MCP 中用了 1 个）| https://github.com/modelcontextprotocol/servers | `opencode.jsonc` MCP 配置，npx 自动装 |
+| **server-github** | GitHub API 操作 — 取自 modelcontextprotocol/servers（50+ MCP 中用了 1 个）| https://github.com/modelcontextprotocol/servers | `opencode.jsonc` MCP 配置，npx 自动装 |
 
 ### 语言覆盖
 
