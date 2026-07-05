@@ -36,16 +36,18 @@
 → 计入全局 6 次退回配额
 
 ### 明确的小任务
-"修个 bug"、"改个样式"、"加个字段"
-→ **先检测是否含版本关键词（v1/v2/release/）→ 如有，优先走跨版本路由**
+"改个样式"、"加个字段"
 → 直接派 @fixer，不走 spec 流程
 → 修复后自动跑 lint + semgrep
 → 修复记录 → `docs/trail/fixes/<version>/<date>-<slug>.md`
 
-### Bug 排查
-"找不到原因"、"难复现"、"调了一小时没头绪"
+### Bug 修复（含排查）
+"修个 bug"、"找不到原因"、"难复现"、"调了一小时没头绪"
+→ **先检测是否含版本关键词（v1/v2/release/）→ 如有，优先走跨版本路由**
+→ 如果已明确是简单 bug（无需诊断）→ 直接 @fixer 修复
+→ 如果原因不明或反复失败 → 加载 `/diagnosing-bugs` 走六步循环
 → 派 @fixer + 加载 `/diagnosing-bugs`
-→ 走六步循环：复现→最小化→假设→仪器→修复→回归测试
+→ 走六步循环：复现→最小化→假设→插桩/日志定位根因→修复→回归测试
 → 修复后先跑 semgrep → 有报错退回修复，直到清洁
 → 再跑回归测试 → 全绿通过
 → 修复记录 → `docs/trail/fixes/<version>/<date>-<slug>.md`（含诊断过程）
@@ -56,7 +58,7 @@
 → 深度模块化思路：找接缝、做适配器、加测试
 → 重构后跑现有测试 → 必须全绿
 → 跑 lint + semgrep
-→ 产出 `refactor-summary.md` 记录改动和原因
+→ 产出 `docs/trail/changes/<version>/<feature-id>/refactor-summary.md` 记录改动和原因
 → 写入 `docs/spec/lessons/`（架构决策、踩坑记录）
 
 ### TDD 实现（强制）
@@ -69,6 +71,7 @@
 PRD/plan 已存在
 → 加载 `/implement`
 → 按依赖顺序逐个实现
+→ **强制 TDD**：非平凡逻辑必须先写测试再写实现
 
 ### 卡壳 / 反复失败
 "卡壳了"、"又错了"、"为什么还不行"、"try harder"、"别摆烂"
@@ -99,7 +102,8 @@ review 设计/PRD/方案
 > 以下为各质量门禁快速参考，完整执行流程见「全链路触发规则」相应步骤。
 
 ### 验收测试生成
-PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 checklist → 写入 .mattpocock/prds/<id>-acceptance-checklist.md
+PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 checklist → 写入 `.mattpocock/prds/<id>-acceptance-checklist.md`
+（该文件路径会记录在步骤 9 的 `09-verification.md` 中）
 
 ### Code Review（open-code-review + ponytail-review）
 @fixer 实现完成后 → 分两步走：
@@ -182,6 +186,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - 先尝试 `/tdd`（RED：先写测试 → 看测试失败）
    - 再 `/implement`（GREEN：写最小实现 → 测试通过 → REFACTOR）
    - **开工前**：@fixer 先扫一眼步骤 4 的「接口类型契约」，核实一致性
+  - 如发现契约与代码/PRD 不一致 → 退回步骤 4 修正契约，不自行修改
    - **非平凡逻辑默认必须走 TDD，先写测试再写实现**
    - 可跳过 TDD 的例外（需 @oracle 在步骤 3 裁定并写入 `03-architecture.md`）：
      · 纯 UI/样式改动（无业务逻辑）
@@ -203,8 +208,9 @@ Semgrep 通过后 → @oracle 回验 PRD：
        第 3 轮：验证
        — 3 轮后仍有 trivial warning（如改 40 文件的类型声明）→ 可标记 `#[allow]/eslint-disable` + 记录，放行
      · **编译 error** → 直接退回步骤 5（不浪费 3 轮自修复配额）
-   - **退回配额规则**：步骤 5→6→5 退回时，清空 lint 3 轮配额，重新计数
-   - **退回 ≥2 次**（同一类问题）→ @oracle 介入
+- **退回配额规则**：步骤 5→6→5 退回时，清空 lint 3 轮配额，重新计数
+- 步骤 6 自修复 3 轮配额是步骤内部的独立限制，不计入全局 6 次退回迭代
+- **退回 ≥2 次**（同一类问题）→ @oracle 介入
    - 不跑 test（步骤 5 TDD 已覆盖）
 
 7. **Code Review** → `@fixer` 分两步：
@@ -272,12 +278,14 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 步骤 8（semgrep）: 3 分钟
 - 其余步骤: 10 分钟
 
-超时处理：步骤标记为 ⏳ 超时，记录已完成的产出，允许继续或中止裁定。
+超时处理：步骤标记为 ⏳ 超时，记录已完成的产出，询问用户继续或中止。
+- 用户不在线或 60 秒无响应 → @oracle 裁定：如果该步骤有部分可用产出则继续，否则中止。
 
 ### Token 成本控制
 回溯回路和重复步骤会增加 token 消耗：
 - 每次退回估算该步骤的 token 消耗并累加到会话累计值
 - 全流程 token 建议上限：500K token（超出后提示用户确认是否继续）
+- 子功能 DAG 场景下，500K 指**每个子功能**独立计算，不是所有子功能总计
 - 用户确认继续则不拦截；用户中止则标记为「已中止」并记录当前进度
 
 步骤 1-9 全部通过后，功能标记为可合并。步骤 10 按需执行，不影响合并状态。
@@ -368,7 +376,8 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - README 包含：项目简介、技术栈、快速启动、目录结构
    - CONTRIBUTING 包含：代码规范、提 PR 流程、开发环境
 5. `git init && git commit -m "chore: init"` — 首次提交
-6. CI 门禁（按技术栈选配）
+6. 创建 `docs/trail/STATE.md`（测试数 0, lint 待首检, 无活跃功能）
+7. CI 门禁（按技术栈选配）
 
 ### 非本流程项目接入（中途接手）
 当中途接手一个**不是用本流水线开发**的已有项目时，走接入流程：
@@ -394,7 +403,9 @@ Semgrep 通过后 → @oracle 回验 PRD：
 步骤 D — 上线：
 11. 之后的第一个需求迭代走完整 1→10 步流水线
 
-> 原则：不追溯历史——基线只记录「当前是什么样」，不做旧的 01-prd.md。
+> 原则：不追溯历史——基线只记录「当前是什么样」，不做旧的 01-prd-md。
+>
+> **基线文档 vs 首次迭代架构**：步骤 B 产出的 `docs/spec/architecture.md` 是**全项目级**逆向工程结果，描述<u>当前代码实际架构</u>。首次迭代步骤 3 的 `03-architecture.md` 是**功能级**设计决策。两者关系：`03-architecture.md` 引用 `architecture.md` 中的既有架构作为上下文，只写本次变更新增的决策。
 
 ### 项目规则
 - 编辑文件前：读取 `.opencode/rules/risk-zones.md`，判断风险分区
@@ -415,7 +426,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - **步骤 4**（代码设计）→ `docs/trail/changes/<version>/<feature-id>/04-code-design.md`
   — 必含「接口类型契约」章节（无跨边界通信的项目标记 N/A 跳过）
 - **步骤 5**（代码实现）→ 由 /tdd 和 /implement 的产物构成
-- **步骤 6**（自修复 lint）→ 自动工具，无需手工产物
+- **步骤 6**（自修复 lint）→ 自动工具，无需手工产物。如 3 轮后有 trivial warning 被 suppress，记录到 `07-code-review.md` 简化建议节
 - **步骤 7**（code review）→ `docs/trail/changes/<version>/<feature-id>/07-code-review.md`
 - **步骤 8**（安全扫描）→ `docs/trail/changes/<version>/<feature-id>/08-security-scan.md`
 - **步骤 9**（验收）→ `docs/trail/changes/<version>/<feature-id>/09-verification.md` + 更新 `docs/trail/STATE.md`
@@ -432,7 +443,8 @@ Semgrep 通过后 → @oracle 回验 PRD：
 
 ### 讨论与产物分离
 
-- 脑暴讨论不生成文件（context-mode 自动捕获）
+- 日常对话不生成文件（context-mode 自动捕获）
+- **brainstorming 环节的对话会产出 `brainstorm/design.md`**（结构化的设计决策）
 - 回顾讨论：`ctx_search(queries: ["关键词"], sort: "timeline")`
 
 ### 版本管理
