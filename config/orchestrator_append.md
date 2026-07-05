@@ -94,6 +94,8 @@ review 设计/PRD/方案
 - User-invoked skill（`/to-prd` `/to-issues` `/setup-matt-pocock-skills`）由用户主动调或按规则自动调
 - Model-invoked skill（`/tdd` `/diagnosing-bugs` 等）由 agent 看 description 自行加载
 
+> 以下为各质量门禁快速参考，完整执行流程见「全链路触发规则」相应步骤。
+
 ### 验收测试生成
 PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 checklist → 写入 .mattpocock/prds/<id>-acceptance-checklist.md
 
@@ -135,7 +137,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 有缺口 → @fixer 修正 → 重新回验
 
 ### 知识回写（Knowledge Write-back）
-回验通过后 → @oracle 把本次的架构决策和经验教训写入 `docs/spec/lessons/`：
+步骤 9 通过后 → @oracle 把本次的架构决策和经验教训写入 `docs/spec/lessons/`：
 - 写入内容：本次变更涉及的架构决策、踩坑记录、最佳实践
 - 命名规范：`<日期>-<功能名>.md`
 - 仅写入**可复用的知识**，不记操作流水账
@@ -220,7 +222,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - 有缺口 → @fixer 修正 → 重新回验
    - 产出：`09-verification.md` + 更新 `docs/trail/STATE.md`
 
-10. **知识回写** → `@oracle`（可选）：
+10. **知识回写** → `@oracle`（按需执行）：
     - 将本次架构决策、经验教训写入 `docs/spec/lessons/<date>-<feature>.md`
     - 仅写入可复用知识，不记操作流水账
     - 不写的内容：纯 UI 样式调整、常规 CRUD、配置变更（无长期价值）
@@ -267,7 +269,7 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 全流程 token 建议上限：500K token（超出后提示用户确认是否继续）
 - 用户确认继续则不拦截；用户中止则标记为「已中止」并记录当前进度
 
-只有全部 10 步通过，才标记功能为可合并。
+步骤 1-9 全部通过后，功能标记为可合并。步骤 10 按需执行，不影响合并状态。
 
 ### RTK Token 节省
 - 系统已安装 `rtk`（`/usr/local/bin/rtk`），会在 bash 命令输出进入 LLM 前过滤噪声
@@ -389,27 +391,27 @@ Semgrep 通过后 → @oracle 回验 PRD：
 
 ### 记录规则
 
-流水线阶段完成后，保存产物到 `docs/trail/`：
+流水线阶段完成后，保存产物到 `docs/trail/`。路径中 `<version>` 由 `git branch --show-current` 自动推断（`main` → `main`，`release/v1` → `v1`）。详见 `docs/trail/VERSIONING.md`。
 
-- **步骤 1**（需求探索+PRD）→ `docs/trail/changes/<id>/01-prd.md`
+- **步骤 1**（需求探索+PRD）→ `docs/trail/changes/<version>/<feature-id>/01-prd.md`
   — brainstorming 产出 `brainstorm/design.md`（如拆子功能则多个文件）
   — /to-issues 产出 `plan.md`（任务拆解，子功能 ≥2 时含 DAG）
-- **步骤 2**（设计）→ `docs/trail/changes/<id>/02-design.md`
-- **步骤 3**（架构审查）→ `docs/trail/changes/<id>/03-architecture.md`
+- **步骤 2**（设计）→ `docs/trail/changes/<version>/<feature-id>/02-design.md`
+- **步骤 3**（架构审查）→ `docs/trail/changes/<version>/<feature-id>/03-architecture.md`
   — 包含：领域归属判断、TDD 例外裁定
   — 跨功能 ADR → `docs/spec/decisions/<date>-<slug>.md`
   — 如属于已有领域，同步更新 `docs/spec/domains/<domain>/model.md`
-- **步骤 4**（代码设计）→ `docs/trail/changes/<id>/04-code-design.md`
+- **步骤 4**（代码设计）→ `docs/trail/changes/<version>/<feature-id>/04-code-design.md`
   — 必含「接口类型契约」章节（无跨边界通信的项目标记 N/A 跳过）
 - **步骤 5**（代码实现）→ 由 /tdd 和 /implement 的产物构成
 - **步骤 6**（自修复 lint）→ 自动工具，无需手工产物
-- **步骤 7**（code review）→ `docs/trail/changes/<id>/07-code-review.md`
-- **步骤 8**（安全扫描）→ `docs/trail/changes/<id>/08-security-scan.md`
-- **步骤 9**（验收）→ `docs/trail/changes/<id>/09-verification.md` + 更新 `docs/trail/STATE.md`
+- **步骤 7**（code review）→ `docs/trail/changes/<version>/<feature-id>/07-code-review.md`
+- **步骤 8**（安全扫描）→ `docs/trail/changes/<version>/<feature-id>/08-security-scan.md`
+- **步骤 9**（验收）→ `docs/trail/changes/<version>/<feature-id>/09-verification.md` + 更新 `docs/trail/STATE.md`
   — 子功能 DAG 的集成验证归入此步
 - **步骤 10**（知识回写）→ `docs/spec/lessons/<date>-<feature>.md`
 
-> Bug 修复记录 → `docs/trail/fixes/<date>-<slug>.md`（不走步骤编号，独立记录）
+> Bug 修复记录 → `docs/trail/fixes/<version>/<date>-<slug>.md`（不走步骤编号，独立记录）
 
 首次写入后：`ctx_index(path: "docs/spec/", source: "docs/spec")`
 查询：`ctx_search(queries: ["关键词"], source: "docs/spec")`
