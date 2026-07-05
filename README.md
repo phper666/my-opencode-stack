@@ -57,6 +57,21 @@ my-opencode-stack/
 | macOS | 当前仅支持 macOS | ✅ |
 | Docker Desktop | 可选，项目需要时安装 | ❌ |
 
+## 保持同步
+
+本地环境有变更后，同步回仓库：
+
+```bash
+bash scripts/sync.sh          # 同步并推送
+bash scripts/sync.sh --dry-run  # 先看看改了什么
+```
+
+脚本会自动：
+- 复制配置文件（opencode.jsonc、orchestrator_append.md 等）
+- 复制插件和模板
+- **替换真实 API Key 为占位符**，防止泄漏
+- git commit + push
+
 ## 了解更多
 
 - [这是什么 + 能力清单](docs/overview.md)
