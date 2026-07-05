@@ -22,6 +22,15 @@ cp "$REPO_DIR/config/opencodereview-config.json" "$HOME/.opencodereview/config.j
 
 echo "=== 4. 复制 agentmemory 配置 ==="
 cp "$REPO_DIR/config/agentmemory.env" "$HOME/.agentmemory/.env"
+PLIST_DEST="$HOME/Library/LaunchAgents/com.agentmemory.plist"
+cp "$REPO_DIR/config/agentmemory.plist" "$PLIST_DEST"
+# 替换 PLACEHOLDER_HOME 为真实路径
+sed -i '' "s|<PLACEHOLDER_HOME>|$HOME|g" "$PLIST_DEST"
+# 如果 node 不在默认 PATH 中，追加到 plist
+NODE_DIR="$(dirname "$(which node 2>/dev/null)")"
+if [ -n "$NODE_DIR" ] && ! echo "$NODE_DIR" | grep -qE "^/(usr/local|usr/bin|opt/homebrew)"; then
+  sed -i '' "s|<PLACEHOLDER_HOME>/.local/bin|<PLACEHOLDER_HOME>/.local/bin:$NODE_DIR|" "$PLIST_DEST"
+fi
 
 echo "=== 5. 安装插件依赖 ==="
 if [ ! -f "$CONFIG_DIR/package.json" ]; then
