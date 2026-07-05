@@ -44,19 +44,47 @@
 - 你不想让 AI 帮你做架构决策
 - 你不需要跨会话记忆和代码知识图谱
 
-## 技术栈
+## 引用的项目
 
-| 层 | 技术 |
-|:---|:-----|
-| Agent 框架 | OpenCode + oh-my-opencode-slim |
-| 记忆系统 | agentmemory（SQLite + BM25 + 向量 + 知识图谱） |
-| 代码理解 | codebase-memory-mcp |
-| 模型 | deepseek-v4-flash / deepseek-v4-pro / MiMo-V2.5 / 开源模型（opencode.go） |
-| 技能引擎 | mattpocock/skills + anthropics/skills |
-| 代码审查 | open-code-review（阿里巴巴）|
-| 安全扫描 | semgrep |
-| Token 压缩 | rtk |
-| 代码简化 | ponytail |
+| 项目 | 用途 | 链接 | 必须 |
+|:----|:-----|:----|:----:|
+| **OpenCode** | AI 编码 IDE，本环境的基础 | https://github.com/opencode-ai/opencode | ✅ |
+| **oh-my-opencode-slim** | 8 agent 编排插件，路由规则 + 模型分配 | https://github.com/code-yeongyu/oh-my-opencode-slim | ✅ |
+| **agentmemory** | 长期记忆系统（51 个 MCP 工具，L0-L3 记忆管道）| https://www.npmjs.com/package/@agentmemory/agentmemory | ✅ |
+| **mattpocock/skills** | 14 个工程 skill（/to-prd、/tdd、/implement 等）| https://github.com/mattpocock/skills | ✅ |
+| **open-code-review** | 阿里巴巴线级代码审查工具 | https://github.com/alibaba/open-code-review | ✅ |
+| **semgrep** | 多语言安全扫描（30+ 语言）| https://github.com/semgrep/semgrep | ✅ |
+| **codebase-memory-mcp** | 代码知识图谱（调用关系追踪、架构分析）| https://github.com/DeusData/codebase-memory-mcp | ✅ |
+| **rtk** | CLI 输出 token 压缩（60-90% 节省）| https://github.com/rtk-ai/rtk | ✅ |
+| **ponytail** | OpenCode 插件，代码最小化原则 | https://github.com/DietrichGebert/ponytail | ✅ |
+| **context-mode** | OpenCode 插件，上下文保护（ctx_* 工具）| https://github.com/mksglu/context-mode | ✅ |
+| **opencode-token-monitor** | OpenCode 插件，token 用量监控 | https://www.npmjs.com/package/opencode-token-monitor | ✅ |
+| **@xenova/transformers** | 本地向量嵌入（agentmemory 本地 embedding）| https://www.npmjs.com/package/@xenova/transformers | ✅ |
+| **anthropics/skills** | 前端设计 skill（taste-skill、minimalist-ui）| https://github.com/anthropics/skills | ❌ 可选 |
+| **chrome-devtools-mcp** | 浏览器调试 MCP | https://github.com/ChromeDevTools/chrome-devtools-mcp | ❌ 可选 |
+| **markitdown-mcp** | 文件转 Markdown MCP | https://github.com/microsoft/markitdown | ❌ 可选 |
+| **server-sequential-thinking** | 结构化推理 MCP | https://github.com/modelcontextprotocol/servers | ❌ 可选 |
+| **server-github** | GitHub API 操作 MCP | https://github.com/modelcontextprotocol/servers | ❌ 可选 |
+| **find-skills** | Vercel skill 发现工具 | https://github.com/vercel-labs/skills | ❌ 可选 |
+| **api-design** | REST API 设计模式 skill | https://github.com/anthropics/skills | ❌ 可选 |
+| **e2e-testing** | Playwright E2E 测试 skill | https://github.com/anthropics/skills | ❌ 可选 |
+| **shadcn** | shadcn/ui 组件管理 skill | https://github.com/anthropics/skills | ❌ 可选 |
+| **tauri-v2** | Tauri v2 跨平台桌面开发 skill | https://github.com/nodnarbnitram/claude-code-extensions | ❌ 可选 |
+| **rust-engineer** | Rust 工程 skill（所有权、异步、错误处理）| https://github.com/jeffallan/claude-skills | ❌ 可选 |
+| **sqlite-database-expert** | SQLite 数据库 skill | https://github.com/martinholovsky/claude-skills-generator | ❌ 可选 |
+| **postgres** | PostgreSQL skill（TimescaleDB）| https://github.com/timescale/pg-aiguide | ❌ 可选 |
+| **skill-creator** | 创建/编辑 OpenCode skill | https://github.com/anthropics/claude-plugins-official | ❌ 可选 |
+
+### 语言覆盖
+
+| 语言 | 工程 skill | 审查 | 安全扫描 |
+|:----|:----------:|:----:|:--------:|
+| TypeScript / JavaScript | ✅ /tdd + /implement | ✅ open-code-review | ✅ semgrep |
+| Java | ✅ 管道通用 | ✅ open-code-review（阿里原生）| ✅ semgrep |
+| Python | ✅ 管道通用 | ✅ open-code-review | ✅ semgrep |
+| Go | ✅ 管道通用 | ✅ open-code-review | ✅ semgrep |
+| Rust | ✅ rust-engineer | ✅ open-code-review | ✅ semgrep |
+| 其他 | ✅ 管道通用 | ⚠️ open-code-review 部分支持 | ✅ semgrep
 
 ## 项目结构
 
