@@ -56,6 +56,11 @@ my-opencode-stack/
 | macOS | 当前仅支持 macOS | ✅ |
 | Docker Desktop | 可选，项目需要时安装 | ❌ |
 
+## 了解更多
+
+- [这是什么 + 能力清单](docs/overview.md)
+- [10 步管道 + 8 agent 分工](docs/pipeline.md)
+
 ## License
 
 MIT
