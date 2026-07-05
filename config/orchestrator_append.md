@@ -243,6 +243,25 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 对常见命令（ls, find, git, grep, cargo test, npm list 等），优先用 `rtk <command>` 替代裸命令
 - 例：`rtk ls -la`、`rtk git status`、`rtk find . -name "*.ts"`、`rtk cargo check`
 
+### 跨版本开发
+涉及多个版本的场景：
+
+**"修一下 v1 的 bug"、"这个 bug 在 v1 和 v2 都有"、"v1 有 bug"**
+→ 先读 `docs/trail/VERSIONING.md` 了解分支策略
+→ 确定影响的最老版本 → `git checkout release/v<版本>`
+→ 走诊断 + 修复流程
+→ cherry-pick 到所有受影响版本 + main
+→ 每个目标分支跑回归验证
+
+**"新功能要在 v2 里"、"基于 v1 开发新版本"**
+→ 从 main 切功能分支 → `git checkout -b feat/<name>`
+→ 走完整 10 步管道 → 合并回 main
+→ 发布时从 main 切出 `release/v<新版本>`
+
+**"当前在哪个版本？"**
+→ `git branch --show-current`
+→ 产物路径自动加版本前缀：`docs/trail/changes/<version>/`
+
 ### 全栈环境同步
 "全栈环境同步"、"全栈开发环境同步"、"同步环境配置到仓库"
 → 找到 `~/AI/my-opencode-stack/`
