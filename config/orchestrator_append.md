@@ -135,32 +135,37 @@ PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 c
 （该文件路径会记录在步骤 9 的 `09-verification.md` 中）
 
 ### Code Review（open-code-review + ponytail-review）
-@fixer 实现完成后 → 分两步走：
+@fixer 实现完成后 → 分两步走（轮次按风险等级调整）：
 
 **① 正确性审查：** `ocr review --audience agent`
-→ 高/中优先级问题让 @fixer 修复 → 重新审查
-→ 重审 ≤3 轮 → 超过后 @oracle 介入裁定
+→ 高风险功能：高/中优先级问题全修，重审 ≤3 轮 → 超限 @oracle 裁定
+→ 中风险功能：高/中优先级问题全修，重审 ≤2 轮 → 超限 @oracle 裁定
+→ 低风险功能：只修 high 优先级问题（不修 medium），重审 ≤1 轮
+→ 重审超限后统一由 @oracle 介入裁定
 
 **② 过度设计审查：** ponytail-review
+→ 所有风险等级均执行
 → 列出可简化项（stdlib 替代、多余抽象、未用依赖等）
 → 追加到 `07-code-review.md`「简化建议」节
 → @oracle 逐条裁定采纳/拒绝
 
 ### 自修复 Lint + Type-check（零 token 成本）
-@fixer 实现 + TDD 完成后 → 自动跑 lint + type-check：
+@fixer 实现 + TDD 完成后 → 自动跑 lint + type-check（轮次按风险等级调整）：
 - 检测项目类型，自动选对应工具（tsc、ESLint、Biome、cargo check、ruff 等）
-- **自修复模式**：遇到错误自动修复 → 最多 3 轮迭代
-  - 第 1 轮：自动修复（工具自带的 `--fix` / `--write` 等）
-  - 第 2 轮：agent 逐条修复剩余错误
-  - 第 3 轮：验证所有检查通过
-- 3 轮后仍有错 → 列出剩余问题，进入步骤 7（code review 时会评估是否致命）
+- **自修复模式**：遇到错误自动修复
+  - 高风险功能：最多 3 轮迭代（--fix → agent修 → 验证）
+  - 中风险功能：最多 2 轮迭代（--fix → agent修）
+  - 低风险功能：最多 1 轮（--fix），warning 直接 suppress + 记录
+- 超轮次后仍有错 → 列出剩余问题，进入步骤 7
 - 不跑 test（步骤 5 TDD 已保证测试覆盖）
 - 如果项目没有对应的工具链，跳过并注明
 
 ### Semgrep 安全扫描
 Code review 通过后 → 在项目目录执行 `semgrep --config=auto .` 扫描
-→ 有报错让 @fixer 修复并重扫
-→ 重扫 ≤3 轮 → 超过后 @oracle 介入裁定
+→ 有报错让 @fixer 修复并重扫（轮次按风险等级调整）
+→ 高风险：重扫 ≤3 轮 → 超限 @oracle 裁定
+→ 中风险：重扫 ≤2 轮 → 超限 @oracle 裁定
+→ 低风险：重扫 ≤1 轮，修完为止
 
 ### PRD 回验
 Semgrep 通过后 → @oracle 回验 PRD：
@@ -227,28 +232,34 @@ Semgrep 通过后 → @oracle 回验 PRD：
      · **自动生成的代码**（protobuf/OpenAPI gen 等）
      · **一次性迁移脚本**
 
-6. **自修复 lint + type-check** → `@fixer`：
+6. **自修复 lint + type-check** → `@fixer`（轮次按风险等级调整）：
    - 检测项目类型，自动选对应工具（tsc、ESLint、Biome、cargo check、ruff 等）
    - **分叉路径**：
      · `clean` → 继续
-     · **仅 lint warning** → 3 轮自修复：
-       第 1 轮：工具自动修复（`cargo clippy --fix` / `eslint --fix` 等）
-       第 2 轮：agent 逐条修剩余
-       第 3 轮：验证
-       — 3 轮后仍有 trivial warning（如改 40 文件的类型声明）→ 可标记 `#[allow]/eslint-disable` + 记录，放行
-     · **编译 error** → 直接退回步骤 5（不浪费 3 轮自修复配额）
-- **退回配额规则**：步骤 5→6→5 退回时，清空 lint 3 轮配额，重新计数
-- 步骤 6 自修复 3 轮配额是步骤内部的独立限制，不计入全局 6 次退回迭代
+     · **仅 lint warning** → 自修复：
+       高风险：最多 3 轮（--fix → agent修 → 验证）
+       中风险：最多 2 轮（--fix → agent修）
+       低风险：最多 1 轮（--fix），warning 直接 suppress + 记录
+       — 超轮次后仍有 trivial warning → 标记 `#[allow]/eslint-disable` + 记录，放行
+     · **编译 error** → 直接退回步骤 5
+- **退回配额规则**：步骤 5→6→5 退回时，清空 lint 配额，重新计数
+- 自修复轮次是步骤内部的独立限制，不计入全局 6 次退回迭代
 - **退回 ≥2 次**（同一类问题）→ @oracle 介入
    - 不跑 test（步骤 5 TDD 已覆盖）
 
-7. **Code Review** → `@fixer` 分两步：
-   - ① `ocr review --audience agent`（正确性）→ 修 high/medium → 重审 ≤3 轮 → 超限 @oracle 裁定
-   - ② ponytail-review（过度设计）→ 列简化清单 → 追加到 `07-code-review.md`
+7. **Code Review** → `@fixer` 分两步（轮次按风险等级调整）：
+   - ① `ocr review --audience agent`（正确性）
+     高风险：修 high/medium，重审 ≤3 轮
+     中风险：修 high/medium，重审 ≤2 轮
+     低风险：只修 high，重审 ≤1 轮
+     超限后 @oracle 裁定
+   - ② ponytail-review（过度设计）→ 所有等级均执行
    — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
-8. **安全扫描** → `@fixer semgrep --config=auto`（SQL注入、XSS、硬编码密钥等）
-   — 有报错让 @fixer 修复并重扫，≤3 轮 → 超限 @oracle 裁定
+8. **安全扫描** → `@fixer semgrep --config=auto`（轮次按风险等级调整）
+   — 高风险：重扫 ≤3 轮 → 超限 @oracle 裁定
+   — 中风险：重扫 ≤2 轮 → 超限 @oracle 裁定
+   — 低风险：重扫 ≤1 轮，修完为止
 
 9. **回验** → `@oracle`：
    - 读取 PRD 需求清单 + 验收 checklist + 代码变更
@@ -274,10 +285,10 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 超过 2 次 → @oracle 介入裁定（改设计 / 改方案 / 砍范围）
 - **全局限制**：所有退回迭代总计 ≤6 次，超过则强制 @oracle 裁定
 
-步骤 7/8/9 发现问题 → 各步骤自身设有 ≤3 轮重审上限：
-- 步骤 7（code review）：ocr 重审 ≤3 轮，超限 @oracle 裁定
-- 步骤 8（semgrep）：重扫 ≤3 轮，超限 @oracle 裁定
-- 步骤 9（回验）：重验 ≤3 轮，超限 @oracle 裁定
+步骤 7/8/9 发现问题 → 各自按风险等级设有重审上限：
+- 步骤 7（code review）：高风险 ≤3 轮、中风险 ≤2 轮、低风险 ≤1 轮 → 超限 @oracle 裁定
+- 步骤 8（semgrep）：高风险 ≤3 轮、中风险 ≤2 轮、低风险 ≤1 轮 → 超限 @oracle 裁定
+- 步骤 9（回验）：所有等级 ≤3 轮 → 超限 @oracle 裁定（回验不改风险等级）
 - 步骤 7/8/9 的重试计入全局 6 次配额
 
 #### 步骤职责边界
