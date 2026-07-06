@@ -93,6 +93,27 @@
 → 产出 `docs/trail/changes/<version>/<feature-id>/refactor-summary.md` 记录改动和原因
 → 写入 `docs/spec/lessons/`（架构决策、踩坑记录）
 
+### Hotfix 快道
+"线上 bug"、"紧急修复"、"马上修一下"
+→ 专为线上紧急 bug 设计，不打断当前工作
+→ 如果 dev 有未完成工作 → 建议用 worktree 隔离
+→ 走 5 步快速通道：诊断 → @fixer 修复 → 回归测试 → semgrep → staging 验收 → main
+→ 跳过：PRD、设计、架构、代码设计、lint、lessons
+→ 修复记录 → `docs/trail/fixes/<version>/<date>-<slug>.md`
+→ **合入 main 后自动 cherry-pick 到 dev**（防止回归）
+
+### Spike 技术调研
+"调研一下"、"试试方案"、"探探路"
+→ 用于技术可行性验证、方案选型对比、实验性代码
+→ 路径：假设 → 实验 → 结论（Go / No-Go）→ 存档
+→ 实验代码放在独立分支或临时目录，不污染主分支
+→ **产出不是 PRD 而是决策记录**：
+  → `docs/trail/spikes/<date>-<topic>.md`
+  → 格式：目标 → 方案 → 实验过程 → 结论 → 后续建议
+→ 如果结论是 Go → 走正常 10 步管道做正式实现
+→ 如果结论是 No-Go → 存档即可，经验存入 lessons
+→ 不需要写测试、不需要 code review、不需要安全扫描
+
 ### TDD 实现（强制）
 "用测试驱动"、"先写测试"、"TDD"
 → 加载 `/tdd`
@@ -206,15 +227,26 @@ PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 c
 - 不跑 test（步骤 5 TDD 已保证测试覆盖）
 - 如果项目没有对应的工具链，跳过并注明
 
-### Semgrep 安全扫描
-Code review 通过后 → 在项目目录执行 `semgrep --config=auto .` 扫描
+### Semgrep 安全扫描 + 依赖审计
+Code review 通过后 → 执行安全检查（两项并行）：
+
+**① 源码扫描**：`semgrep --config=auto .`
 → 有报错让 @fixer 修复并重扫（轮次按风险等级调整）
 → 高风险：重扫 ≤3 轮 → 超限 @oracle 裁定
 → 中风险：重扫 ≤2 轮 → 超限 @oracle 裁定
 → 低风险：重扫 ≤1 轮，修完为止
 
+**② 依赖审计**：检测项目类型后自动选对应工具
+→ **Rust 项目**：`cargo deny check` 或 `cargo audit`
+→ **Node 项目**：`npm audit` 或 `pnpm audit`
+→ 有漏洞 → 让 @fixer 升级依赖版本 → 重新审计
+→ 高风险（CVSS ≥ 7）依赖漏洞 → 阻塞流程，退回 Step 5
+→ 中/低风险漏洞 → 记录到 `07-code-review.md` 简化建议节，继续流程
+
+> 依赖审计在当前项目中可能找不到工具链（如未安装 cargo-deny），这时跳过并注明即可。
+
 ### PRD 回验
-Semgrep 通过后 → @oracle 回验 PRD：
+Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
 - 读取 PRD 的完整需求清单 + 验收 checklist + 代码变更
 - 逐项核实每个需求是否被实现、有没有多余的未规划功能
 - 输出验收报告：✅已实现 / ⚠️部分实现 / ❌未实现 / 🔴和 PRD 不一致 / ⚪多余功能 / ⚠️缺少测试
@@ -222,6 +254,11 @@ Semgrep 通过后 → @oracle 回验 PRD：
   - 如果变更未包含测试文件，检查是否属于 TDD 跳过例外
   - 如果是例外 → 正常通过
   - 如果不是例外且没有测试文件 → 标记为 **⚠️ 缺少测试**，退回步骤 5 补测试
+- **测试质量审查**：@oracle 审查测试的有效性（非生成覆盖率报告）
+  → 测试是否覆盖了 PRD 中的每个需求项？
+  → 测试是测了真实逻辑还是 mock 了全部？
+  → 边缘/异常路径有没有测试覆盖？
+  → 如果测试质量不达标（全部 mock、仅测 getter、覆盖率明显不足）→ 退回 Step 5
 - 有缺口 → @fixer 修正 → 重新回验
 
 ### 知识回写（Knowledge Write-back）
@@ -306,10 +343,12 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - ③ ponytail-review（过度设计）→ 所有等级均执行
    — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
-8. **安全扫描** → `@fixer semgrep --config=auto`（轮次按风险等级调整）
-   — 高风险：重扫 ≤3 轮 → 超限 @oracle 裁定
-   — 中风险：重扫 ≤2 轮 → 超限 @oracle 裁定
-   — 低风险：重扫 ≤1 轮，修完为止
+8. **安全扫描 + 依赖审计** → `@fixer`（两项并行，轮次按风险等级调整）
+   — ① `semgrep --config=auto`（源码扫描）
+     高风险：≤3 轮  中风险：≤2 轮  低风险：≤1 轮
+   — ② 依赖审计（npm audit / cargo deny / pnpm audit）
+     高风险（CVSS ≥ 7）漏洞 → 阻塞流程，退回 Step 5
+     中/低风险漏洞 → 记录到 `07-code-review.md`，继续流程
 
 9. **回验** → `@oracle`：
    - 读取 PRD 需求清单 + 验收 checklist + 代码变更
@@ -317,9 +356,13 @@ Semgrep 通过后 → @oracle 回验 PRD：
    - **TDD 合规检查**：检查变更是否包含对应测试文件
      · 如无测试文件 → 检查是否在步骤 3 裁定的例外范围内
      · 是例外 → 正常通过；非例外 → 标记 ⚠️ 退回步骤 5
+   - **测试质量审查**：@oracle 检查测试是否真的有用
+     · 测试是否覆盖 PRD 每个需求项？
+     · 边缘/异常路径有测试吗？
+     · 测试不是全部 mock 空壳？
    - **设计对照**：对照 `02-design.md` 的组件映射表和交互说明
    - **集成验证**：子功能 DAG 的跨子功能集成测试归入此步
-- 有缺口 → @fixer 修正 → 重新回验
+ - 有缺口 → @fixer 修正 → 重新回验
 - 回验 ≤3 轮 → 超过后 @oracle 介入裁定
    - 产出：`09-verification.md` + 更新 `docs/trail/STATE.md`
 

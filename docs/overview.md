@@ -15,7 +15,7 @@
 | **长期记忆** | agentmemory（L0-L3，51 个 MCP 工具）| 1 |
 | **代码理解** | codebase-memory-mcp（代码知识图谱 + 调用关系追踪）| 1 |
 | **工具集成** | GitHub / 浏览器调试 / 文件转 Markdown / 结构化推理 | 4 MCP |
-| **质量门禁** | open-code-review + semgrep + 自修复 lint | 3 |
+| **质量门禁** | ocr + 视觉审计 + semgrep + 依赖审计 + 自修复 lint + 测试质量审查 | 6 |
 | **输出压缩** | caveman（语言精简，省 ~54% 中文输出 token）+ ponytail（代码最小化） | 2 |
 | **用量监控** | CodexBar（macOS 菜单栏，OpenCode Go / MiMo / DeepSeek / MiniMax 等 20+ 提供商）| 1 |
 | **开发流程** | 10 步管道（PRD → 知识回写 + 回溯回路 + DAG）| 1 |
