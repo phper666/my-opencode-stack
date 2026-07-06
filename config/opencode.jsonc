@@ -9,26 +9,6 @@
     "cors": ["http://localhost:5173"],
   },
   "provider": {
-    "echobraid": {
-      "name": "echobraid",
-      "npm": "@ai-sdk/openai-compatible",
-      "options": {
-        "baseURL": "https://api.echobraid.ai/openai/v1",
-        "apiKey": "<PLACEHOLDER_ECHOBRAID_API_KEY>",
-      },
-      "models": {
-        "deepseek-v4-flash": {
-          "reasoning": true,
-          "options": { "reasoningEffort": "high" },
-          "name": "deepseek-v4-flash",
-        },
-        "deepseek-v4-pro": {
-          "reasoning": true,
-          "options": { "reasoningEffort": "high" },
-          "name": "deepseek-v4-pro",
-        },
-      },
-    },
     "opencode-go": {
       "name": "opencode-go",
       "npm": "@ai-sdk/openai-compatible",

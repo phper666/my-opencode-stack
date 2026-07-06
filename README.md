@@ -55,7 +55,6 @@ my-opencode-stack/
 
 | 资源 | 说明 | 必填 |
 |:----|:-----|:----:|
-| Echobraid API Key | DeepSeek 模型 | ✅ |
 | OpenCode Go API Key | 多种开源模型 | ✅ |
 | Git 用户名 + 邮箱 | — | ✅ |
 | macOS | 当前仅支持 macOS | ✅ |

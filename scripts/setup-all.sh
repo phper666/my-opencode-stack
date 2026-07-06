@@ -16,8 +16,7 @@ manifest_init
 if grep -r "PLACEHOLDER_" config/ --include="*.json" --include="*.env" --include="*.md" > /dev/null 2>&1; then
   echo "⚠️  检测到未替换的 PLACEHOLDER，请先编辑 config/ 下的文件填入 API Key"
   echo "   需要的 Key:"
-  echo "   - ECHOBRAID_API_KEY（opencode.jsonc）"
-  echo "   - OPENCODE_GO_API_KEY（opencode.jsonc）"
+   echo "   - OPENCODE_GO_API_KEY（opencode.jsonc）"
   echo "   - LLM_KEY（agentmemory.env）"
   echo ""
   echo "   编辑后重新运行本脚本"

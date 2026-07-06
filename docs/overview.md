@@ -106,7 +106,7 @@ my-opencode-stack/
 ```bash
 git clone https://github.com/phper666/my-opencode-stack.git
 cd my-opencode-stack
-# 编辑 config/opencode.jsonc → 填入 ECHOBRAID_API_KEY + OPENCODE_GO_API_KEY
+# 编辑 config/opencode.jsonc → 填入 OPENCODE_GO_API_KEY
 # 编辑 config/agentmemory.env → 填入 LLM_KEY
 bash scripts/setup-all.sh
 # 启动 OpenCode Desktop → opencode auth login → 开始使用

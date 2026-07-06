@@ -2,7 +2,7 @@
 
 > **使用方式**：新电脑上，把本文档交给 AI。AI 读完后按步骤自动执行命令，遇到 `<PLACEHOLDER_>` 停下来询问用户填值。
 >
-> **最少准备**：2 个 API Key（Echobraid + OpenCode Go）+ git 用户名/邮箱。共 4 个必填项。
+> **最少准备**：1 个 API Key（OpenCode Go）+ git 用户名/邮箱。共 3 个必填项。
 
 ---
 
@@ -12,10 +12,9 @@
 
 | # | 需要 | 示例 | 去哪拿 | 必填 |
 |:---:|------|------|--------|:---:|
-| 1 | Echobraid API Key | `sk-ant-eb01-...` | opencode.ai → Echobraid | ✅ |
-| 2 | OpenCode Go API Key | `sk-...` | opencode.ai → Go plan | ✅ |
-| 3 | Git 用户名 | `zhangsan` | 用户自己 | ✅ |
-| 4 | Git 邮箱 | `user@example.com` | 用户自己 | ✅ |
+| 1 | OpenCode Go API Key | `sk-...` | opencode.ai → Go plan | ✅ |
+| 2 | Git 用户名 | `zhangsan` | 用户自己 | ✅ |
+| 3 | Git 邮箱 | `user@example.com` | 用户自己 | ✅ |
 
 拿到后执行：
 
@@ -29,6 +28,7 @@ cd my-opencode-stack
 #   config/opencode.jsonc
 #   config/agentmemory.env
 #   config/opencodereview-config.json
+# config/opencode.jsonc 中目前只需替换 OPENCODE_GO_API_KEY
 
 # 开始安装
 bash scripts/setup-all.sh

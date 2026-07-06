@@ -101,7 +101,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 ├──────────────────────────────────────────────────────────────┤
 │                    OpenCode 核心                               │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │  2 个 Provider: Echobraid + OpenCode Go              │   │
+│  │  1 个 Provider: OpenCode Go                        │   │
 │  │  3 个模型族: deepseek-v4 / mimo / qwen / kimi / glm  │   │
 │  │  LSP / Shell / Permission 系统                        │   │
 │  └──────────────────────────────────────────────────────┘   │
@@ -116,7 +116,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 
 | 配置 | 值 | 说明 |
 |:----|:---|:-----|
-| provider | echobraid + opencode-go + opencode-go-anthropic + opencode-free | 4 个模型提供商 |
+| provider | opencode-go + opencode-go-anthropic + opencode-free | 3 个模型提供商 |
 | 模型 | deepseek-v4-flash/pro, mimo-v2.5, qwen3.x, kimi-k2.x, glm-5.x 等 | 17 个模型 |
 | permission | allow | 自动允许所有操作 |
 | server port | 4096 | HTTP API |
