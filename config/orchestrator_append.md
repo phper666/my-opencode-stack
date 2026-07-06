@@ -75,6 +75,7 @@
 ### Bug 修复（含排查）
 "修个 bug"、"找不到原因"、"难复现"、"调了一小时没头绪"
 → **先检测是否含版本关键词（v1/v2/release/）→ 如有，优先走跨版本路由**
+→ 如果当前工作区有未提交的改动 → 建议用 worktree 隔离 hotfix（不打断当前工作），用户确认后才创建：`git worktree add .slim/worktrees/<slug> main`
 → 如果已明确是简单 bug（无需诊断）→ 直接 @fixer 修复
 → 如果原因不明或反复失败 → 加载 `/diagnosing-bugs` 走六步循环
 → 派 @fixer + 加载 `/diagnosing-bugs`
