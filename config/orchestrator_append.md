@@ -2,6 +2,17 @@
 
 按需求类型自动选 skill 和路由：
 
+### 项目分支模型检测（启动时）
+
+进入项目或新会话启动时：
+→ 检查项目根目录是否存在 `docs/trail/VERSIONING.md`
+→ **存在** → 读取其中的分支约定（如 dev→staging→main），分支链自动生效
+  → cherry-pick 方向、产物目录路径据此确定
+→ **不存在** → 默认 main 单分支工作
+  → 可选询问使用者：「这个项目用多分支吗？如 dev→staging→main」
+  → 如果用户确认 → 自动写入 `docs/trail/VERSIONING.md`
+→ **后续变更**：任何时候编辑 VERSIONING.md 即可修改分支模型，下次启动自动生效，不需要改管道代码
+
 ### 模糊新需求
 "我想要 X"、"加个 Y 功能"、"做个 Z 特性"、"需求不太清晰"
 → 加载 Superpowers brainstorming skill
