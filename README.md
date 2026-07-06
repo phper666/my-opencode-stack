@@ -67,11 +67,18 @@ my-opencode-stack/
 
 AI 会对比本地环境和仓库的差异，列出清单，你确认后才写入并 push。
 
-## 了解更多
+## 文档索引
 
-- [完整架构说明](docs/spec/architecture.md) — 分层架构、组件、数据流、设计决策
-- [这是什么 + 能力清单](docs/overview.md)
-- [10 步管道 + 8 agent 分工](docs/pipeline.md)
+| 文档 | 读者 | 内容 |
+|:----|:----|:-----|
+| [完整架构说明](docs/spec/architecture.md) | 想理解系统的人 | 分层架构、组件关系、数据流、设计决策、术语表 |
+| [环境复刻指南](environment-setup-guide.md) | AI（新电脑安装） | 逐行执行的安装文档，遇占位符停下问用户 |
+| [项目概览](docs/overview.md) | 初次接触的人 | 这是什么、能力清单、引用的开源项目 |
+| [10 步管道](docs/pipeline.md) | 开发者 | 8 agent 分工 + 10 步流水线 + 实战样例 |
+| [orchestrator 路由](config/orchestrator_append.md) | AI（orchestrator） | 所有路由规则、质量门禁、回溯回路、token 控制 |
+| [版本策略](docs/trail/VERSIONING.md) | 维护者 | 分支约定、cherry-pick、产物目录版本化 |
+
+## 保持同步
 
 ## License
 
