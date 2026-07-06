@@ -45,6 +45,9 @@ install_skill triage                            mattpocock/skills
 install_skill improve-codebase-architecture     mattpocock/skills
 install_skill resolving-merge-conflicts         mattpocock/skills
 
+# caveman — 输出压缩 skill（82K stars，省 ~54% 中文输出 token）
+install_skill caveman                           JuliusBrussee/skills
+
 # agentmemory skills（复合安装，先快照再检测新增）
 echo "  安装 agentmemory skills..."
 SKILLS_BEFORE=$(ls "$SKILLS_DIR" 2>/dev/null | sort)

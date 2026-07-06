@@ -295,6 +295,34 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - 对常见命令（ls, find, git, grep, cargo test, npm list 等），优先用 `rtk <command>` 替代裸命令
 - 例：`rtk ls -la`、`rtk git status`、`rtk find . -name "*.ts"`、`rtk cargo check`
 
+### 输出压缩规则（caveman + ponytail）
+
+Ponytail（代码最小化）已全局生效。Caveman（输出语言压缩）按以下规则自动开关：
+
+**默认模式**：`lite`（去 filler/客套话，保留完整句子和技术精度）
+**切换命令**：`/caveman lite|full|stop`（用户可随时覆盖）
+**永久禁用**：wenyan-* 模式（per-session opt-in，不参与管道调度）
+
+**按步骤控制**：
+
+| 步骤 | caveman | ponytail | 理由 |
+|:---:|:-------:|:--------:|:----|
+| 1 PRD（brainstorming） | 关闭 | ✅ | 需要完整叙事和需求探索 |
+| 2 设计（@designer） | 关闭 | ✅ | 设计规范需要精确描述 |
+| 3 架构审查（@oracle） | 关闭 | ✅ | 架构推理需要完整表达 |
+| 4 代码设计（@oracle+fixer） | 关闭 | ✅ | 接口契约必须精确完整 |
+| **5 实现（@fixer TDD）** | **lite** | ✅ | 代码实现阶段，精简语言加速迭代 |
+| 6 自修复 lint | 关闭 | ✅ | 工具输出，非自然语言 |
+| **7 Code Review** | **lite** | ✅ | 需保留因果链（"有 bug，因为 X"） |
+| 8 安全扫描 | 关闭 | ✅ | 工具输出，非自然语言 |
+| 9 回验（@oracle） | 关闭 | ✅ | 需要逐项核对完整需求 |
+| 10 知识回写 | 关闭 | ✅ | lessons 需要完整清晰 |
+
+**安全机制**：
+- `auto-clarity`：caveman 在安全警告、不可逆操作、歧义场景自动恢复完整表达
+- `stop caveman`：用户在任何时候说此命令立即切回正常模式
+- orchestrator 在调度每一步前注入对应 system prompt（`caveman_mode: lite|off`）
+
 ### 跨版本开发
 涉及多个版本的场景：
 
