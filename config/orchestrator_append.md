@@ -175,7 +175,21 @@ PRD 审查通过后 → @oracle 从 PRD 提取所有需求项 → 生成验收 c
 → 低风险功能：只修 high 优先级问题（不修 medium），重审 ≤1 轮
 → 重审超限后统一由 @oracle 介入裁定
 
-**② 过度设计审查：** ponytail-review
+**② 视觉审计（UI 项目，按风险等级触发）：**
+→ 🟢 低风险 UI 改动（改按钮颜色/文案/间距）：跳过
+→ 🟡 中风险 UI 改动（新增页面/新组件）：执行代码级设计审计
+   @designer 读前端代码，对照 02-design.md：
+   - 组件树结构是否匹配设计规范
+   - shadcn 组件变体是否正确
+   - 设计 token 是否引用正确（无硬编码颜色/间距）
+   - 响应式类名是否齐全
+   - 状态覆盖（disabled/loading/empty）是否到位
+→ 🔴 高风险 UI 改动（重构布局/主题/核心组件）：追加 @observer 截图对比
+   如果 dev server 在运行，@observer 用 chrome-devtools 截关键页面
+   分析：布局还原度、间距系统、色彩语义、状态覆盖、响应式断点
+→ 发现问题 → 退回 Step 5 修正 → 重新审计
+
+**③ 过度设计审查：** ponytail-review
 → 所有风险等级均执行
 → 列出可简化项（stdlib 替代、多余抽象、未用依赖等）
 → 追加到 `07-code-review.md`「简化建议」节
@@ -279,13 +293,17 @@ Semgrep 通过后 → @oracle 回验 PRD：
 - **退回 ≥2 次**（同一类问题）→ @oracle 介入
    - 不跑 test（步骤 5 TDD 已覆盖）
 
-7. **Code Review** → `@fixer` 分两步（轮次按风险等级调整）：
+7. **Code Review** → `@fixer` 分三步（轮次按风险等级调整）：
    - ① `ocr review --audience agent`（正确性）
      高风险：修 high/medium，重审 ≤3 轮
      中风险：修 high/medium，重审 ≤2 轮
      低风险：只修 high，重审 ≤1 轮
      超限后 @oracle 裁定
-   - ② ponytail-review（过度设计）→ 所有等级均执行
+   - ② 视觉审计（UI 项目，按风险触发）
+     🟢 低风险 UI 跳过
+     🟡 中风险：@designer 代码级设计审计（读代码 → 验 token/组件/响应式）
+     🔴 高风险：追加 @observer 截图对比（chrome-devtools 截页面）
+   - ③ ponytail-review（过度设计）→ 所有等级均执行
    — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
 8. **安全扫描** → `@fixer semgrep --config=auto`（轮次按风险等级调整）

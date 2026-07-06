@@ -12,7 +12,7 @@
 | 4 | **代码设计** | `@oracle + @fixer` | `04-code-design.md`（必含接口类型契约）|
 | 5 | **实现** | `@fixer TDD` | 代码 + 测试 |
 | 6 | **自修复** | `@fixer` lint + type-check | 无产物 |
-| 7 | **Code Review** | `@fixer` ocr（风险感知轮次）+ ponytail-review | `07-code-review.md` |
+| 7 | **Code Review** | `@fixer` ocr（风险感知轮次）+ 视觉审计（@designer/@observer）+ ponytail-review | `07-code-review.md` |
 | 8 | **安全扫描** | `@fixer semgrep` | `08-security-scan.md` |
 | 9 | **回验** | `@oracle` | `09-verification.md` + `STATE.md` |
 | 10 | **知识回写** | `@oracle` | `docs/spec/lessons/` |
