@@ -33,9 +33,11 @@
 
 管道自动适配分支上下文：
 
-- `main` 分支 → 新功能开发，完整 10 步
-- `release/v*` 分支 → 只修 bug，诊断 → 修复 → 验证 → cherry-pick 到新版本
-- `feat/*` 分支 → 新功能开发，产物归到 main
+- `dev` 分支 → 日常开发，完整 10 步
+- `main` 分支 → 线上稳定版，只接受 staging 合入 + hotfix cherry-pick
+- `release/v*` 分支 → 长期支持版，只修 bug，诊断 → 修复 → 验证 → cherry-pick 到较新版本
+- `feat/*` 分支 → 大功能开发，从 dev 切，合并回 dev
+- 分支策略可配：每个项目在 `docs/trail/VERSIONING.md` 中定义自己的分支链，orchestrator 启动时自动检测
 
 跨版本 bug 修复时，orchestrator 自动：
 1. 切到最老的受影响版本
