@@ -16,6 +16,18 @@ for pkg in node docker git curl rtk semgrep; do
   fi
 done
 
+echo "=== 1b. Homebrew Cask（macOS 应用）==="
+for pkg in codexbar; do
+  if brew list "$pkg" &>/dev/null 2>&1; then
+    echo "  ✅ $pkg 已存在"
+    manifest_add brew pkg="$pkg" pre_existing=true
+  else
+    echo "  安装 $pkg..."
+    brew install "$pkg"
+    manifest_add brew pkg="$pkg" pre_existing=false
+  fi
+done
+
 echo "=== 2. npm 全局包 ==="
 # 核心工具
 for pkg in @agentmemory/agentmemory @alibaba-group/open-code-review @xenova/transformers; do

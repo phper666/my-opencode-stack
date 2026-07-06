@@ -341,6 +341,12 @@ agentmemory 运行流程:
   └── config.json
 ```
 
+### 6.1.1 可选工具
+
+| 工具 | 安装方式 | 用途 |
+|:----|:--------|:-----|
+| **CodexBar** | `brew install codexbar` | macOS 菜单栏 AI 用量监控（OpenCode Go / MiMo / DeepSeek / MiniMax 等 20+ 提供商）|
+
 ### 6.2 安装流
 
 ```

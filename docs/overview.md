@@ -17,6 +17,7 @@
 | **工具集成** | GitHub / 浏览器调试 / 文件转 Markdown / 结构化推理 | 4 MCP |
 | **质量门禁** | open-code-review + semgrep + 自修复 lint | 3 |
 | **输出压缩** | caveman（语言精简，省 ~54% 中文输出 token）+ ponytail（代码最小化） | 2 |
+| **用量监控** | CodexBar（macOS 菜单栏，OpenCode Go / MiMo / DeepSeek / MiniMax 等 20+ 提供商）| 1 |
 | **开发流程** | 10 步管道（PRD → 知识回写 + 回溯回路 + DAG）| 1 |
 
 > **语言支持**：10 步管道（PRD → 实现 → 审查 → 安全扫描）是**语言无关**的，Java、Python、Go、TypeScript、Rust 等都能用。列出的 PostgreSQL / Tauri / Rust 等是额外安装的领域技能，不是限制。`open-code-review` 原生支持 Java/TS/JS/Python/Go，`semgrep` 支持 30+ 语言。
