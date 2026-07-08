@@ -9,7 +9,7 @@
 | 能力 | 由谁提供 | 数量 |
 |:----|:---------|:----:|
 | **专业 AI 角色** | 8 个 agent：orchestrator / oracle / designer / fixer / librarian / explorer / observer / council | 8 |
-| **工程技能** | Matt Pocock skills + Superpowers brainstorming + caveman（需求探索 → PRD → 实现 → 审查 → 回验 + 输出压缩） | 17 |
+| **工程技能** | Matt Pocock skills + brainstorming 魔改版（见 `skills/brainstorming/`）+ caveman（需求探索 → PRD → 实现 → 审查 → 回验 + 输出压缩） | 17 |
 | **鞭策/生产力** | PUA 鞭策 + 大厂方法论路由 — 穷尽方案后再放弃 | 12 |
 | **领域技能** | PostgreSQL / SQLite / Tauri / Rust / Playwright E2E / shadcn UI / REST API 设计 / 前端设计系统 | 20+ |
 | **长期记忆** | agentmemory（L0-L3，51 个 MCP 工具）| 1 |

@@ -7,8 +7,9 @@
 > 1. 读取 `environment-setup-guide.md` — 这是你将要逐行执行的安装文档
 > 2. 遇到 `<PLACEHOLDER_XXX>` 时停下来问用户要真实值，不要猜测
 > 3. 按文档顺序执行所有命令，每步跑完验证
-> 4. 全部完成后告诉用户重启 OpenCode
-> 5. 安装完成后，`docs/spec/architecture.md` 有完整架构说明，`docs/pipeline.md` 有开发流程和实战样例
+> 4. 安装完成后，读取 `docs/replication-checklist.md` 第八节「AI 一键验证」，执行其中的 bash 脚本自动验证环境完整性
+> 5. 全部验证通过后，告诉用户重启 OpenCode
+> 6. 安装完成后，`docs/spec/architecture.md` 有完整架构说明，`docs/pipeline.md` 有开发流程和实战样例
 
 ## 用法
 

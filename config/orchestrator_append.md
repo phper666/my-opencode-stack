@@ -15,10 +15,11 @@
 
 ### 模糊新需求
 "我想要 X"、"加个 Y 功能"、"做个 Z 特性"、"需求不太清晰"
-→ 加载 Superpowers brainstorming skill
-  → 探索上下文 → 提问澄清 → 提 2-3 方案 → 逐节展示设计 → 写 design doc
+→ 加载 `brainstorming` skill（魔改版，见 `skills/brainstorming/SKILL.md`）
+  → 探索项目上下文 → 逐条提问澄清 → 提 2-3 方案（带权衡）→ 分节展示设计 → 用户确认 → 写 design doc → 交棒
+  → 设计产出: `docs/trail/changes/<branch>/<feature>/brainstorm/design.md`
   → 如果需求过大，自动拆为多个子功能，各产独立 design.md
-→ 加载 grill-me skill 拷打设计决策
+→ 加载 `/grill-me` skill 拷打设计决策
   → 逐分支追问 → 如有问题修改 design.md → 确认
 → orchestrator 读 design.md 作上下文
 → 自动调 `/to-prd` 合成 PRD
@@ -283,7 +284,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
 ### 全链路触发规则
 当用户描述一个新功能需求时，Orchestrator 自动按以下顺序执行：
 
-1. **需求探索+PRD** → brainstorming → /grill-me → /to-prd
+1. **需求探索+PRD** → 加载 `brainstorming` skill → `/grill-me` → `/to-prd` → `/to-issues`
 
 2. **设计** → 按项目技术栈分流：
    - 有 UI 层（React/Vue/Svelte/Tauri 前端等）→ `@designer /prototype`
@@ -316,6 +317,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
    - **开工前**：@fixer 先扫一眼步骤 4 的「接口类型契约」，核实一致性
   - 如发现契约与代码/PRD 不一致 → 退回步骤 4 修正契约，不自行修改
    - **非平凡逻辑默认必须走 TDD，先写测试再写实现**
+   - TDD 微提交后调用 `caveman-commit` 压缩 commit message
    - 可跳过 TDD 的例外（需 @oracle 在步骤 3 裁定并写入 `03-architecture.md`）：
      · 纯 UI/样式改动（无业务逻辑）
      · 快速原型/实验性代码
@@ -351,8 +353,9 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
      🟢 低风险 UI 跳过
      🟡 中风险：@designer 代码级设计审计（读代码 → 验 token/组件/响应式）
      🔴 高风险：追加 @observer 截图对比（chrome-devtools 截页面）
-   - ③ ponytail-review（过度设计）→ 所有等级均执行
-   — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
+    - ③ ponytail-review（过度设计）→ 所有等级均执行
+    - ④ caveman-review — 将 ponytail-review 简化为一行摘要追加到 `07-code-review.md`
+    — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
 8. **安全扫描 + 依赖审计** → `@fixer`（两项并行，轮次按风险等级调整）
    — ① `semgrep --config=auto`（源码扫描）
@@ -376,6 +379,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
  - 有缺口 → @fixer 修正 → 重新回验
 - 回验 ≤3 轮 → 超过后 @oracle 介入裁定
    - 产出：`09-verification.md` + 更新 `docs/trail/STATE.md`
+   - 回验完成后调用 `caveman-stats` 记录本功能 token 节省量
 
 10. **知识回写** → `@oracle`（按需执行）：
     - 将本次架构决策、经验教训写入 `docs/spec/lessons/<date>-<feature>.md`

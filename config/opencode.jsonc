@@ -65,6 +65,7 @@
     "context-mode",
     "opencode-token-monitor@latest",
     "@dietrichgebert/ponytail",
+    "./plugins/caveman/plugin.js",
   ],
   "agent": {
     "explore": { "disable": true },

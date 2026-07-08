@@ -121,7 +121,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 | permission | allow | 自动允许所有操作 |
 | server port | 4096 | HTTP API |
 | LSP | enabled | 语言服务器协议 |
-| plugins | omo-slim, context-mode, token-monitor, ponytail | 4 个核心插件 |
+| plugins | omo-slim, context-mode, token-monitor, ponytail, caveman | 5 个核心插件（含 caveman 输出压缩）|
 
 ### 3.2 插件层
 
@@ -132,6 +132,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 | **opencode-token-monitor** | npm | token 用量监控和统计 |
 | **ponytail** | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | 代码最小化：YAGNI、stdlib 优先、最短路径 |
 | **agentmemory-capture** | 自研 (js/ts) | 自动捕获所有会话事件到 agentmemory |
+| **caveman** | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | 输出语言压缩：去 filler，保技术精度，自动激活 |
 | **rtk** | [rtk-ai/rtk](https://github.com/rtk-ai/rtk) | CLI 输出压缩，减少 token 消耗 |
 
 ### 3.3 Agent 层（8 个专业角色）
@@ -155,7 +156,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 |:----|:---:|:---------|
 | mattpocock/skills | 14 | to-prd, to-issues, implement, tdd, diagnosing-bugs, codebase-design, domain-modeling, grill-with-docs, prototype, ask-matt, triage, improve-architecture, resolving-merge-conflicts, grill-me |
 | anthropics/skills | 11 | frontend-design, skill-creator, api-design, e2e-testing, shadcn, taste-skill, minimalist-ui, docx, xlsx, pdf, pptx |
-| JuliusBrussee/skills | 1 | caveman（输出压缩） |
+| JuliusBrussee/skills | 7 | caveman + 6 子 skill（caveman-commit, caveman-review, caveman-compress, caveman-help, caveman-stats, cavecrew）|
 | rohitg00/agentmemory | 6 | recall, remember, forget, agentmemory-mcp-tools 等 |
 | obra/superpowers | 1 | brainstorming（需求探索 - 魔改版） |
 | tanweai/pua | 12 | pua / p10 / p7 / p9 / pro / yes / mama / ding 等鞭策 skill |
@@ -362,7 +363,7 @@ setup-all.sh
   │
   ├─ 3/6 install-skills.sh
   │   ├─ mattpocock/skills (14)
-  │   ├─ JuliusBrussee/skills (1: caveman)
+  │   ├─ JuliusBrussee/caveman (7: caveman + caveman-commit, caveman-review, caveman-compress, caveman-help, caveman-stats, cavecrew)
   │   ├─ anthropics/skills (11)
   │   ├─ rohitg00/agentmemory (6)
   │   ├─ obra/superpowers (1: brainstorming - 魔改版)

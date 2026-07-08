@@ -6,7 +6,7 @@
 
 | # | 步骤 | 谁做 | 产出 |
 |:-:|:----|:-----|:-----|
-| 1 | **需求探索+PRD** | brainstorming → /grill-me → /to-prd → /to-issues | `01-prd.md` + `plan.md`（含 DAG）|
+| 1 | **需求探索+PRD** | 加载 `brainstorming` skill（探索上下文→澄清需求→出方案→写design doc）→ `/grill-me`（拷打设计）→ `/to-prd` → `/to-issues` | `brainstorm/design.md` + `01-prd.md` + `plan.md`（含 DAG）|
 | 2 | **设计** | `@designer` 按技术栈分流 | `02-design.md` |
 | 3 | **架构审查** | `@oracle` | `03-architecture.md`（含 TDD 例外裁定）|
 | 4 | **代码设计** | `@oracle + @fixer` | `04-code-design.md`（必含接口类型契约）|
@@ -69,10 +69,12 @@
 ```
 你（一句话） → orchestrator 自动走流程
 
-步骤 1 PRD:
-  → /to-prd 生成 PRD → /to-issues 拆成 3 个子功能
-  → plan.md 含 DAG：项目管理 ─→ AI 写作 ─→ 导出
-  → 产出: docs/trail/changes/novel-tool/01-prd.md
+步骤 1 需求探索+PRD:
+  → 加载 brainstorming skill（探索项目上下文→逐条澄清→提 2-3 方案→出设计→写 design doc）
+  → 产出: docs/trail/changes/novel-tool/brainstorm/design.md
+  → 加载 /grill-me 拷打设计决策
+  → /to-prd 合成 PRD → /to-issues 拆成 3 个子功能（含 DAG）
+  → 产出: docs/trail/changes/novel-tool/01-prd.md + plan.md
 
 步骤 2 设计:
   → @designer 检测到 Tauri 前端 → 出设计规范 + 组件树
