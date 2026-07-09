@@ -32,7 +32,9 @@
         "mcps": [
           "chrome-devtools",
           "sequential-thinking",
-          "github"
+          "github",
+          "context7",
+          "deepwiki"
         ],
         "model": "opencode-go/deepseek-v4-pro",
         "skills": [
@@ -56,7 +58,8 @@
           "context7",
           "gh_grep",
           "markitdown",
-          "github"
+          "github",
+          "deepwiki"
         ],
         "model": "opencode-go/deepseek-v4-flash",
         "skills": [],

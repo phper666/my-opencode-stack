@@ -100,6 +100,10 @@
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
     },
+    "deepwiki": {
+      "type": "remote",
+      "url": "https://mcp.deepwiki.com/mcp",
+    },
   },
   "lsp": true,
 }
