@@ -43,6 +43,8 @@
 | 18 | rtk.js | `~/.config/opencode/plugins/rtk.js` | 存在 |
 | 19 | agentmemory-capture | `~/.config/opencode/plugins/agentmemory-capture.ts` | 存在 |
 | 20 | **caveman plugin** | `~/.config/opencode/plugins/caveman/plugin.js` | **存在** |
+| 21 | **worktree plugin** | `~/.config/opencode/plugins/worktree/worktree.ts` | **存在** |
+| 22 | **worktree deps** | `~/.config/opencode/plugins/worktree/node_modules/zod` | **存在** |
 | 21 | **caveman flag** | `~/.config/opencode/.caveman-active` | 重启 OpenCode 后含 `full` |
 | 22 | **AGENTS.md caveman** | `~/.config/opencode/AGENTS.md` | 含 `<!-- caveman-begin -->` |
 
@@ -101,6 +103,8 @@ echo -n "caveman flag: "; cat ~/.config/opencode/.caveman-active 2>/dev/null || 
 echo -n "AGENTS.md: "; grep -q 'caveman-begin' ~/.config/opencode/AGENTS.md 2>/dev/null && echo "✅" || echo "❌"
 echo -n "ponytail: "; grep -q 'ponytail' ~/.config/opencode/opencode.jsonc 2>/dev/null && echo "✅" || echo "❌"
 echo -n "pipe rules: "; grep -q 'caveman-commit' ~/.config/opencode/oh-my-opencode-slim/orchestrator_append.md 2>/dev/null && echo "✅" || echo "❌"
+echo -n "worktree plugin: "; [ -f ~/.config/opencode/plugins/worktree/worktree.ts ] && echo "✅" || echo "❌"
+echo -n "worktree deps: "; [ -d ~/.config/opencode/plugins/worktree/node_modules/zod ] && echo "✅" || echo "❌"
 ```
 
 ---
@@ -140,6 +144,8 @@ echo "--- 插件 ---"
 echo -n "rtk.js: "; [ -f ~/.config/opencode/plugins/rtk.js ] && echo "✅" || echo "❌"
 echo -n "agentmemory-capture: "; [ -f ~/.config/opencode/plugins/agentmemory-capture.js ] && echo "✅" || echo "❌"
 echo -n "caveman plugin: "; [ -f ~/.config/opencode/plugins/caveman/plugin.js ] && echo "✅" || echo "❌"
+echo -n "worktree plugin: "; [ -f ~/.config/opencode/plugins/worktree/worktree.ts ] && echo "✅" || echo "❌"
+echo -n "worktree deps: "; [ -d ~/.config/opencode/plugins/worktree/node_modules/zod ] && echo "✅" || echo "❌"
 echo -n "caveman flag: "; [ -f ~/.config/opencode/.caveman-active ] && cat ~/.config/opencode/.caveman-active || echo "⚠️（需重启 OpenCode）"
 echo -n "AGENTS.md caveman: "; grep -q 'caveman-begin' ~/.config/opencode/AGENTS.md 2>/dev/null && echo "✅" || echo "❌"
 

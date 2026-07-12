@@ -1,0 +1,32 @@
+{
+  "$schema": "https://registry.kdco.dev/schemas/worktree.json",
+
+  // Worktree plugin configuration
+  // Docs: https://github.com/kdcokenny/ocx
+
+  // Custom base path for worktree storage (supports ~)
+  // Default: ~/.local/share/opencode/worktree
+  // "worktreePath": "~/my-worktrees",
+
+  "sync": {
+    // Files to copy from main worktree to new worktrees
+    // Example: [".env", ".env.local", "dev.sqlite"]
+    "copyFiles": [".env"],
+
+    // Directories to symlink (saves disk space)
+    // Example: ["node_modules"]
+    "symlinkDirs": ["node_modules"],
+
+    // Patterns to exclude from copying
+    "exclude": []
+  },
+
+  "hooks": {
+    // Commands to run after worktree creation
+    // Example: ["pnpm install", "docker compose up -d"]
+    "postCreate": [],
+
+    // Commands to run before worktree deletion
+    "preDelete": []
+  }
+}

@@ -66,6 +66,7 @@
     "opencode-token-monitor@latest",
     "@dietrichgebert/ponytail",
     "./plugins/caveman/plugin.js",
+    "./plugins/worktree/worktree.ts",
   ],
   "agent": {
     "explore": { "disable": true },
@@ -75,30 +76,30 @@
     "codebase-memory-mcp": {
       "enabled": true,
       "type": "local",
-      "command": ["<PLACEHOLDER_HOME>/.local/bin/codebase-memory-mcp"],
+      "command": ["bash", "-l", "-c", "codebase-memory-mcp"],
       "timeout": 60000,
     },
     "agentmemory": {
       "enabled": true,
       "type": "local",
-      "command": ["agentmemory", "mcp"],
+      "command": ["bash", "-l", "-c", "agentmemory mcp"],
     },
     "chrome-devtools": {
       "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--no-usage-statistics", "--no-performance-crux", "--slim"],
+      "command": ["bash", "-l", "-c", "npx -y chrome-devtools-mcp@latest --no-usage-statistics --no-performance-crux --slim"],
     },
     "markitdown": {
       "type": "local",
-      "command": ["markitdown-mcp"],
+      "command": ["bash", "-l", "-c", "markitdown-mcp"],
     },
     "sequential-thinking": {
       "enabled": true,
       "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "command": ["bash", "-l", "-c", "npx -y @modelcontextprotocol/server-sequential-thinking"],
     },
     "github": {
       "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+      "command": ["bash", "-l", "-c", "npx -y @modelcontextprotocol/server-github"],
     },
     "deepwiki": {
       "type": "remote",

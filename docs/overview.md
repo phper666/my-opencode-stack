@@ -56,6 +56,7 @@
 | **context-mode** | 上下文保护（ctx_* 工具）| https://github.com/mksglu/context-mode | `opencode.jsonc` 插件声明，自动加载 |
 | **opencode-token-monitor** | token 用量监控 | https://www.npmjs.com/package/opencode-token-monitor | `opencode.jsonc` 插件声明，自动加载 |
 | **ponytail** | 代码最小化原则 | https://github.com/DietrichGebert/ponytail | `opencode.jsonc` 插件声明，自动加载 |
+| **worktree** | Git worktree 隔离开发 | https://github.com/kdcokenny/opencode-worktree | 提供 `worktree_create` / `worktree_delete` 工具 |
 | **rtk** | CLI 输出 token 压缩 | https://github.com/rtk-ai/rtk | `install-system.sh` brew install |
 | **agentmemory** | 长期记忆（51 MCP 工具）| https://www.npmjs.com/package/@agentmemory/agentmemory | `install-system.sh` npm install -g |
 | **@xenova/transformers** | 本地向量嵌入 | https://www.npmjs.com/package/@xenova/transformers | `install-system.sh` npm install -g |
@@ -95,7 +96,7 @@
 my-opencode-stack/
 ├── environment-setup-guide.md   ← AI 可执行的复刻文档（新电脑交给 AI）
 ├── config/                       ← 全部配置文件（API Key 用占位符）
-├── plugins/                      ← OpenCode 插件
+├── plugins/                      ← OpenCode 插件（rtk + agentmemory-capture + worktree）
 ├── scripts/                      ← 一键安装脚本
 ├── templates/                    ← trail 产物模板
 ├── docs/                         ← 说明文档

@@ -55,10 +55,29 @@ manifest_add file repo_path="plugins/agentmemory-capture.js" target="$PLUGIN_DIR
 cp "$REPO_DIR/plugins/agentmemory-capture.ts" "$PLUGIN_DIR/agentmemory-capture.ts"
 manifest_add file repo_path="plugins/agentmemory-capture.ts" target="$PLUGIN_DIR/agentmemory-capture.ts"
 
+echo "=== 6.5 安装 worktree 插件 ==="
+WORKTREE_DIR="$PLUGIN_DIR/worktree"
+if [ ! -d "$WORKTREE_DIR" ]; then
+  cp -r "$REPO_DIR/plugins/worktree" "$WORKTREE_DIR"
+  manifest_add dir repo_path="plugins/worktree/" target="$WORKTREE_DIR"
+  (cd "$WORKTREE_DIR" && npm install)
+  echo "worktree plugin ✅"
+else
+  echo "worktree plugin 已存在，跳过"
+fi
+
 echo "=== 7. 复制 trail 模板 ==="
 mkdir -p "$CONFIG_DIR/trail-templates"
 cp -r "$REPO_DIR/templates/trail-templates/"* "$CONFIG_DIR/trail-templates/"
 manifest_add file repo_path="templates/trail-templates/" target="$CONFIG_DIR/trail-templates/"
+
+echo "=== 7.5 复制 worktree 模板配置 ==="
+WORKTREE_TEMPLATE="$REPO_DIR/templates/worktree.jsonc"
+if [ -f "$WORKTREE_TEMPLATE" ] && [ ! -f "$REPO_DIR/.opencode/worktree.jsonc" ]; then
+  mkdir -p "$REPO_DIR/.opencode"
+  cp "$WORKTREE_TEMPLATE" "$REPO_DIR/.opencode/worktree.jsonc"
+  echo "worktree config 模板 -> $REPO_DIR/.opencode/worktree.jsonc"
+fi
 
 echo "=== 8. 复制启动脚本 ==="
 cp "$REPO_DIR/start-env.sh" "$HOME/start-ai-env.sh"

@@ -121,7 +121,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 | permission | allow | 自动允许所有操作 |
 | server port | 4096 | HTTP API |
 | LSP | enabled | 语言服务器协议 |
-| plugins | omo-slim, context-mode, token-monitor, ponytail, caveman | 5 个核心插件（含 caveman 输出压缩）|
+| plugins | omo-slim, context-mode, token-monitor, ponytail, caveman, worktree | 6 个核心插件 |
 
 ### 3.2 插件层
 
@@ -134,6 +134,7 @@ my-opencode-stack 是一套 **OpenCode 全栈开发环境的一键复刻包**。
 | **agentmemory-capture** | 自研 (js/ts) | 自动捕获所有会话事件到 agentmemory |
 | **caveman** | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | 输出语言压缩：去 filler，保技术精度，自动激活 |
 | **rtk** | [rtk-ai/rtk](https://github.com/rtk-ai/rtk) | CLI 输出压缩，减少 token 消耗 |
+| **worktree** | [kdcokenny/opencode-worktree](https://github.com/kdcokenny/opencode-worktree) | Git worktree 隔离开发：`worktree_create` / `worktree_delete`，自动弹终端 |
 
 ### 3.3 Agent 层（8 个专业角色）
 

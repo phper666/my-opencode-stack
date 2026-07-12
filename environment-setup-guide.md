@@ -132,13 +132,27 @@ cp plugins/rtk.js ~/.config/opencode/plugins/rtk.js
 cp plugins/agentmemory-capture.ts ~/.config/opencode/plugins/agentmemory-capture.ts
 ```
 
-### 4.3 复制 trail 模板
+### 4.3 安装 worktree 插件（Git 隔离开发）
+
+worktree 插件为 OpenCode 提供 `worktree_create` / `worktree_delete` 工具，用于创建隔离的 git worktree，在新终端中自动启动 OpenCode。
+
+```bash
+# 复制插件文件
+mkdir -p ~/.config/opencode/plugins/worktree
+cp -r plugins/worktree/* ~/.config/opencode/plugins/worktree/
+
+# 安装依赖
+cd ~/.config/opencode/plugins/worktree
+npm install
+```
+
+### 4.4 复制 trail 模板
 
 ```bash
 cp -r templates/trail-templates/* ~/.config/opencode/trail-templates/
 ```
 
-### 4.4 登录认证
+### 4.5 登录认证
 
 ```bash
 opencode auth login
@@ -276,6 +290,12 @@ grep -q 'caveman-begin' ~/.config/opencode/AGENTS.md 2>/dev/null && echo "✅" |
 
 echo -n "11. pipeline rules: "
 grep -q 'caveman-commit' ~/.config/opencode/oh-my-opencode-slim/orchestrator_append.md 2>/dev/null && echo "✅" || echo "❌"
+
+echo -n "12. worktree plugin: "
+[ -f ~/.config/opencode/plugins/worktree/worktree.ts ] && echo "✅" || echo "❌"
+
+echo -n "13. worktree deps: "
+[ -d ~/.config/opencode/plugins/worktree/node_modules/zod ] && echo "✅" || echo "❌"
 
 echo "===== 复刻完成 ====="
 ```

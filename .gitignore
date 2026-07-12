@@ -6,6 +6,9 @@
 .idea/
 .vscode/
 
+# worktree plugin deps
+plugins/worktree/node_modules/
+
 # 当替换真实 API Key 后，取消以下注释防止误提交
 # config/opencode.jsonc
 # config/agentmemory.env

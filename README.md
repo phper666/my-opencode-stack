@@ -28,7 +28,7 @@ bash scripts/setup-all.sh
 my-opencode-stack/
 ├── environment-setup-guide.md   ← AI 可执行的复刻文档
 ├── config/                       ← 全部配置文件（API Key 用占位符）
-├── plugins/                      ← OpenCode 插件（rtk + agentmemory-capture）
+├── plugins/                      ← OpenCode 插件（rtk + agentmemory-capture + worktree）
 ├── skills/                       ← 魔改版 brainstorming skill
 ├── scripts/
 │   ├── lib/manifest.sh           ← 安装记录 manifest 读写

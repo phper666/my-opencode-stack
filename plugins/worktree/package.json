@@ -1,0 +1,10 @@
+{
+  "name": "opencode-worktree",
+  "version": "2.0.11",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "zod": "^4.3.5",
+    "jsonc-parser": "^3.3.1"
+  }
+}
