@@ -1,5 +1,5 @@
 ---
-description: Switch role: pm | be | fe | qa | designer | oracle
+description: "Switch role: pm, be, fe, qa, designer, oracle"
 ---
 /role $ARGUMENTS
 
