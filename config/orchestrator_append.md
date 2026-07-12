@@ -298,7 +298,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
 ### 全链路触发规则
 当用户描述一个新功能需求时，Orchestrator 自动按以下顺序执行：
 
-1. **需求探索+PRD** → 加载 `brainstorming` skill → `/grill-me` → `/to-prd` → `/to-issues`
+1. **需求探索+PRD** → `/caveman stop` → 加载 `brainstorming` skill → `/grill-me` → `/to-prd` → `/to-issues`
 
 2. **设计** → 按项目技术栈分流：
    - 有 UI 层（React/Vue/Svelte/Tauri 前端等）→ `@designer /prototype`
@@ -325,7 +325,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
      · 无跨边界通信的单体项目：标记 N/A 跳过
    - 本步骤不涉及「该不该用 X」——那是步骤 3 的事
 
-5. **实现** → `@fixer`（TDD 强制，有例外）：
+5. **实现** → `/caveman lite` → `@fixer`（TDD 强制，有例外）：
    - 先尝试 `/tdd`（RED：先写测试 → 看测试失败）
    - 再 `/implement`（GREEN：写最小实现 → 测试通过 → REFACTOR）
    - **开工前**：@fixer 先扫一眼步骤 4 的「接口类型契约」，核实一致性
@@ -342,7 +342,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
      · **自动生成的代码**（protobuf/OpenAPI gen 等）
      · **一次性迁移脚本**
 
-6. **自修复 lint + type-check** → `@fixer`（轮次按风险等级调整）：
+6. **自修复 lint + type-check** → `/caveman stop` → `@fixer`（轮次按风险等级调整）：
    - 检测项目类型，自动选对应工具（tsc、ESLint、Biome、cargo check、ruff 等）
    - **分叉路径**：
      · `clean` → 继续
@@ -357,7 +357,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
 - **退回 ≥2 次**（同一类问题）→ @oracle 介入
    - 不跑 test（步骤 5 TDD 已覆盖）
 
-7. **Code Review** → `@oracle` 做 open-code-review（fixer 不审自己代码）：
+7. **Code Review** → `/caveman lite` → `@oracle` 做 open-code-review（fixer 不审自己代码）：
    - ① `ocr review --audience agent`（正确性）
      高风险：修 high/medium，重审 ≤3 轮
      中风险：修 high/medium，重审 ≤2 轮
@@ -371,7 +371,7 @@ Semgrep + 依赖审计通过后 → @oracle 回验 PRD：
     - ④ caveman-review — 将 ponytail-review 简化为一行摘要追加到 `07-code-review.md`
     — 核对接口类型契约与代码实现的一致性（脚本自动化 diff，非人工逐条）
 
-8. **安全扫描 + 依赖审计** → `@fixer`（两项并行，轮次按风险等级调整）
+8. **安全扫描 + 依赖审计** → `/caveman stop` → `@fixer`（两项并行，轮次按风险等级调整）
    — ① `semgrep --config=auto`（源码扫描）
      高风险：≤3 轮  中风险：≤2 轮  低风险：≤1 轮
    — ② 依赖审计（npm audit / cargo deny / pnpm audit）
