@@ -97,7 +97,10 @@
         "skills": [
           "*"
         ],
-        "variant": "high"
+        "variant": "high",
+        "options": {
+          "reasoningEffort": "max"
+        }
       }
     },
     "openai": {
