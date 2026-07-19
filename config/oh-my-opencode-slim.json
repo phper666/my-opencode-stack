@@ -1,32 +1,76 @@
 {
   "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
   "disabled_agents": [],
+  "council": {
+    "default_preset": "default",
+    "presets": {
+      "default": {
+        "alpha": { "model": "opencode-go/deepseek-v4-pro" },
+        "beta": { "model": "opencode-go/deepseek-v4-flash" },
+        "gamma": { "model": "opencode-go/mimo-v2.5-pro" }
+      }
+    }
+  },
   "preset": "custom",
   "presets": {
     "custom": {
-      "council": {
-        "mcps": [],
-        "model": "opencode-go/deepseek-v4-pro",
-        "skills": [],
-        "variant": "high"
-      },
-      "designer": {
-        "mcps": [],
-        "model": "opencode-go/deepseek-v4-pro",
-        "skills": [
-          "prototype",
-          "codebase-design",
-          "shadcn",
-          "taste-skill",
-          "minimalist-ui"
-        ],
-        "variant": "medium"
+      "orchestrator": {
+        "mcps": ["*", "!context7"],
+        "model": "opencode-go/mimo-v2.5-pro",
+        "variant": "high",
+        "skills": ["*"]
       },
       "explorer": {
         "mcps": [],
         "model": "opencode-go/deepseek-v4-flash",
         "skills": [],
         "variant": "high"
+      },
+      "oracle": {
+        "mcps": ["markitdown", "sequential-thinking"],
+        "model": "opencode-go/deepseek-v4-pro",
+        "skills": [
+          "simplify",
+          "codebase-design",
+          "grill-with-docs",
+          "domain-modeling",
+          "api-design",
+          "postgres",
+          "tauri-v2",
+          "rust-engineer",
+          "sqlite-database-expert"
+        ],
+        "variant": "max"
+      },
+      "council": {
+        "mcps": [],
+        "model": "opencode-go/deepseek-v4-pro",
+        "skills": [],
+        "variant": "max"
+      },
+      "librarian": {
+        "mcps": [
+          "websearch",
+          "context7",
+          "gh_grep",
+          "markitdown",
+          "github",
+          "deepwiki"
+        ],
+        "model": "opencode-go/deepseek-v4-flash",
+        "skills": [],
+        "variant": "high"
+      },
+      "designer": {
+        "mcps": [],
+        "model": "opencode-go/kimi-k2.7-code",
+        "skills": [
+          "prototype",
+          "codebase-design",
+          "shadcn",
+          "taste-skill",
+          "minimalist-ui"
+        ]
       },
       "fixer": {
         "mcps": [
@@ -36,7 +80,7 @@
           "context7",
           "deepwiki"
         ],
-        "model": "opencode-go/deepseek-v4-pro",
+        "model": "opencode-go/deepseek-v4-flash",
         "skills": [
           "tdd",
           "diagnosing-bugs",
@@ -52,29 +96,27 @@
         ],
         "variant": "high"
       },
-      "librarian": {
-        "mcps": [
-          "websearch",
-          "context7",
-          "gh_grep",
-          "markitdown",
-          "github",
-          "deepwiki"
-        ],
-        "model": "opencode-go/deepseek-v4-flash",
+      "observer": {
+        "model": "opencode-go/mimo-v2.5",
+        "variant": "high"
+      }
+    },
+    "custom1": {
+      "orchestrator": {
+        "mcps": ["*", "!context7"],
+        "model": "opencode-go1/mimo-v2.5-pro",
+        "variant": "high",
+        "skills": ["*"]
+      },
+      "explorer": {
+        "mcps": [],
+        "model": "opencode-go1/deepseek-v4-flash",
         "skills": [],
         "variant": "high"
       },
-      "observer": {
-        "model": "opencode-go/mimo-v2.5",
-        "variant": "low"
-      },
       "oracle": {
-        "mcps": [
-          "markitdown",
-          "sequential-thinking"
-        ],
-        "model": "opencode-go/deepseek-v4-pro",
+        "mcps": ["markitdown", "sequential-thinking"],
+        "model": "opencode-go1/deepseek-v4-pro",
         "skills": [
           "simplify",
           "codebase-design",
@@ -88,23 +130,70 @@
         ],
         "variant": "max"
       },
-      "orchestrator": {
+      "council": {
+        "mcps": [],
+        "model": "opencode-go1/deepseek-v4-pro",
+        "skills": [],
+        "variant": "max"
+      },
+      "librarian": {
         "mcps": [
-          "*",
-          "!context7"
+          "websearch",
+          "context7",
+          "gh_grep",
+          "markitdown",
+          "github",
+          "deepwiki"
         ],
-        "model": "opencode-go/deepseek-v4-flash",
+        "model": "opencode-go1/deepseek-v4-flash",
+        "skills": [],
+        "variant": "high"
+      },
+      "designer": {
+        "mcps": [],
+        "model": "opencode-go1/kimi-k2.7-code",
         "skills": [
-          "*"
+          "prototype",
+          "codebase-design",
+          "shadcn",
+          "taste-skill",
+          "minimalist-ui"
+        ]
+      },
+      "fixer": {
+        "mcps": [
+          "chrome-devtools",
+          "sequential-thinking",
+          "github",
+          "context7",
+          "deepwiki"
         ],
+        "model": "opencode-go1/deepseek-v4-flash",
+        "skills": [
+          "tdd",
+          "diagnosing-bugs",
+          "implement",
+          "e2e-testing",
+          "frontend-design",
+          "full-output-enforcement",
+          "postgres",
+          "tauri-v2",
+          "rust-engineer",
+          "sqlite-database-expert",
+          "open-code-review"
+        ],
+        "variant": "high"
+      },
+      "observer": {
+        "model": "opencode-go1/mimo-v2.5",
         "variant": "high"
       }
     },
     "openai": {
-      "designer": {
-        "mcps": [],
-        "model": "openai/gpt-5.4-mini",
-        "skills": [],
+      "orchestrator": {
+        "mcps": ["*", "!context7"],
+        "model": "openai/gpt-5.5",
+        "skills": ["*"],
         "variant": "medium"
       },
       "explorer": {
@@ -113,40 +202,29 @@
         "skills": [],
         "variant": "low"
       },
+      "oracle": {
+        "mcps": [],
+        "model": "openai/gpt-5.5",
+        "skills": ["simplify"],
+        "variant": "high"
+      },
+      "librarian": {
+        "mcps": ["websearch", "context7", "gh_grep"],
+        "model": "openai/gpt-5.4-mini",
+        "skills": [],
+        "variant": "low"
+      },
+      "designer": {
+        "mcps": [],
+        "model": "openai/gpt-5.4-mini",
+        "skills": [],
+        "variant": "medium"
+      },
       "fixer": {
         "mcps": [],
         "model": "openai/gpt-5.5",
         "skills": [],
         "variant": "low"
-      },
-      "librarian": {
-        "mcps": [
-          "websearch",
-          "context7",
-          "gh_grep"
-        ],
-        "model": "openai/gpt-5.4-mini",
-        "skills": [],
-        "variant": "low"
-      },
-      "oracle": {
-        "mcps": [],
-        "model": "openai/gpt-5.5",
-        "skills": [
-          "simplify"
-        ],
-        "variant": "high"
-      },
-      "orchestrator": {
-        "mcps": [
-          "*",
-          "!context7"
-        ],
-        "model": "openai/gpt-5.5",
-        "skills": [
-          "*"
-        ],
-        "variant": "medium"
       }
     }
   }

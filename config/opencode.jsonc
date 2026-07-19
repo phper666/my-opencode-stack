@@ -17,18 +17,58 @@
         "apiKey": "<PLACEHOLDER_OPENCODE_GO_API_KEY>",
       },
       "models": {
-        "glm-5.2": { "name": "glm-5.2" },
-        "glm-5.1": { "name": "glm-5.1" },
-        "kimi-k2.7": { "name": "kimi-k2.7" },
-        "kimi-k2.7-code": { "name": "kimi-k2.7-code" },
-        "kimi-k2.6": { "name": "kimi-k2.6" },
-        "deepseek-v4-pro": { "name": "deepseek-v4-pro" },
-        "deepseek-v4-flash": { "name": "deepseek-v4-flash" },
-        "mimo-v2.5": { "name": "mimo-v2.5" },
-        "mimo-v2.5-pro": { "name": "mimo-v2.5-pro" },
-        "minimax-m3": { "name": "minimax-m3" },
-        "minimax-m2.7": { "name": "minimax-m2.7" },
-        "minimax-m2.5": { "name": "minimax-m2.5" },
+        "glm-5.2": { "name": "glm-5.2", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "glm-5.1": { "name": "glm-5.1", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "kimi-k2.7": { "name": "kimi-k2.7", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "kimi-k2.7-code": { "name": "kimi-k2.7-code", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "kimi-k2.6": { "name": "kimi-k2.6", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "deepseek-v4-pro": { "name": "deepseek-v4-pro", "reasoning": true, "options": { "reasoningEffort": "max" } },
+        "deepseek-v4-flash": { "name": "deepseek-v4-flash", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "mimo-v2.5": {
+          "name": "mimo-v2.5",
+          "reasoning": true,
+          "options": { "reasoningEffort": "high" },
+          "variants": {
+            "max": { "options": { "reasoningEffort": "high" } },
+            "high": { "options": { "reasoningEffort": "high" } },
+            "low": { "options": { "reasoningEffort": "low" } }
+          }
+        },
+        "mimo-v2.5-pro": {
+          "name": "mimo-v2.5-pro",
+          "reasoning": true,
+          "options": { "reasoningEffort": "high" },
+          "variants": {
+            "max": { "options": { "reasoningEffort": "high" } },
+            "high": { "options": { "reasoningEffort": "high" } },
+            "low": { "options": { "reasoningEffort": "low" } }
+          }
+        },
+        "minimax-m3": { "name": "minimax-m3", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "minimax-m2.7": { "name": "minimax-m2.7", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "minimax-m2.5": { "name": "minimax-m2.5", "reasoning": true, "options": { "reasoningEffort": "high" } },
+      },
+    },
+    "opencode-go1": {
+      "name": "opencode-go1",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+        "apiKey": "<PLACEHOLDER_OPENCODE_GO1_API_KEY>",
+      },
+      "models": {
+        "glm-5.2": { "name": "glm-5.2", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "glm-5.1": { "name": "glm-5.1", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "kimi-k2.7": { "name": "kimi-k2.7", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "kimi-k2.7-code": { "name": "kimi-k2.7-code", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "kimi-k2.6": { "name": "kimi-k2.6", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "deepseek-v4-pro": { "name": "deepseek-v4-pro", "reasoning": true, "options": { "reasoningEffort": "max" } },
+        "deepseek-v4-flash": { "name": "deepseek-v4-flash", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "mimo-v2.5": { "name": "mimo-v2.5", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "mimo-v2.5-pro": { "name": "mimo-v2.5-pro", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "minimax-m3": { "name": "minimax-m3", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "minimax-m2.7": { "name": "minimax-m2.7", "reasoning": true, "options": { "reasoningEffort": "high" } },
+        "minimax-m2.5": { "name": "minimax-m2.5", "reasoning": true, "options": { "reasoningEffort": "high" } },
       },
     },
     "opencode-go-anthropic": {
@@ -49,7 +89,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "options": {
         "baseURL": "https://opencode.ai/zen/go/v1",
-        "apiKey": "<PLACEHOLDER_OPENCODE_GO_API_KEY>",
+        "apiKey": "<PLACEHOLDER_OPENCODE_FREE_API_KEY>",
       },
       "models": {
         "big-pickle": { "name": "big-pickle" },
