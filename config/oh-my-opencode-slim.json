@@ -94,7 +94,7 @@
           "sqlite-database-expert",
           "open-code-review"
         ],
-        "variant": "high"
+        "variant": "max"
       },
       "observer": {
         "model": "opencode-go/mimo-v2.5",
@@ -182,7 +182,7 @@
           "sqlite-database-expert",
           "open-code-review"
         ],
-        "variant": "high"
+        "variant": "max"
       },
       "observer": {
         "model": "opencode-go1/mimo-v2.5",
